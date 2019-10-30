@@ -1,25 +1,3 @@
-document.addEventListener('keydown', (event) => {
-    switch(event.keyCode) {
-        case 87:
-            console.log('up')
-            
-            break
-        case 65:
-            console.log('left')
-            break
-        case 83:
-            console.log('down')
-            break;
-        case 68:
-            console.log('right')
-        break;
-        default: break;
-    }
-})
-
-document.addEventListener('keyup', (event) => {
-    // console.log(event.keyCode)
-})
 
 /**
  * 87 => w
@@ -27,3 +5,18 @@ document.addEventListener('keyup', (event) => {
  * 83 => s
  * 68 => d
  */
+
+ document.addEventListener('mousemove', (event) => {
+     let offset = 40
+     if(event.clientX < offset)
+        console.log('izquierda')
+
+    if(event.clientX > canvas.width - offset)
+        console.log('derecha')
+
+    if(event.clientY < offset)
+        console.log('arriba')
+
+    if(event.clientY > canvas.height - offset)
+        console.log('abajo')
+ })

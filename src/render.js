@@ -1,10 +1,13 @@
 let stop = false;
 let frameCount = 0;
 let fps, fpsInterval, startTime, now, then, elapsed;
-
+let eso = 0.003
 const camera = {
     xPos: 0,
     yPos: 0,
+    xMov: 0,
+    yMov: 0,
+    acceleration : 3,
     width: window.innerWidth,
     height: window.innerHeight
 }
@@ -40,6 +43,7 @@ function animate(newtime) {
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
         
+        ctx.translate(camera.xMov, camera.yMov);
         render()
         //CLEAR
         ctx.save();
@@ -48,11 +52,15 @@ function animate(newtime) {
         ctx.restore();
 
 
-        //DRAW
-        ctx.rotate(0.004)
+        //DRAW  
+        // ctx.restore()
+        ctx.save();
         ctx.fillStyle = 'green';
+        ctx.rotate(eso)
+        eso += camera.acceleration / 1000
         ctx.fillRect(-50, -50, 100, 100);
-        
+        ctx.restore();
+        // ctx.save();+
         
         // TESTING...Report #seconds since start and achieved fps.
         // let sinceStart = now - startTime;
@@ -67,3 +75,37 @@ function animate(newtime) {
         // }
     }
 }
+
+
+document.addEventListener('keydown', (event) => {
+    switch(event.keyCode) {
+        case 87:
+            camera.yMov = -camera.acceleration;
+            break
+        case 65:
+            camera.xMov = -camera.acceleration;
+            break
+        case 83:
+            camera.yMov = camera.acceleration;
+            break;
+        case 68:
+            camera.xMov = camera.acceleration;
+        break;
+        default: break;
+    }
+})
+
+
+document.addEventListener('keyup', (event) => {
+    switch(event.keyCode) {
+        case 87:
+        case 83:
+            camera.yMov = 0;
+            break
+        case 65:
+        case 68:
+            camera.xMov = 0;
+            break
+        default: break;
+    }
+})
