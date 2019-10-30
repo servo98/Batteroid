@@ -109,3 +109,25 @@ document.addEventListener('keyup', (event) => {
         default: break;
     }
 })
+
+
+document.addEventListener('mousemove', (event) => {
+    let offset = 100
+    if(event.clientX < offset){
+        camera.xMov = camera.acceleration
+    }else if(event.clientX > canvas.width - offset){
+        camera.xMov = -camera.acceleration
+    }else{
+        camera.xMov = 0
+    }
+
+
+   if(event.clientY < offset){
+        camera.yMov = camera.acceleration
+   }else if(event.clientY > canvas.height - offset){
+       camera.yMov = -camera.acceleration
+   }else{
+       camera.yMov = 0
+   }
+
+})  
