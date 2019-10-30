@@ -7,7 +7,7 @@ const camera = {
     yPos: 0,
     xMov: 0,
     yMov: 0,
-    acceleration : 3,
+    acceleration: 3,
     width: window.innerWidth,
     height: window.innerHeight
 }
@@ -39,10 +39,10 @@ function animate(newtime) {
 
     processInput()
     update()
-    
+
     if (elapsed > fpsInterval) {
         then = now - (elapsed % fpsInterval);
-        
+
         ctx.translate(camera.xMov, camera.yMov);
         render()
         //CLEAR
@@ -61,12 +61,12 @@ function animate(newtime) {
         ctx.fillRect(-50, -50, 100, 100);
         ctx.restore();
         // ctx.save();+
-        
+
         // TESTING...Report #seconds since start and achieved fps.
         // let sinceStart = now - startTime;
         // let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
         // console.log("Elapsed time= " + Math.round(sinceStart/1000) + " secs @ " + currentFps + " fps.");
-        
+
         // let milis = Math.round(sinceStart)
         // currentSecond = Math.round(sinceStart / 1000)
         // if(currentSecond != pastSecond){
@@ -75,59 +75,101 @@ function animate(newtime) {
         // }
     }
 }
-
+//arriba, izq, abajo,  derch
+const controles = [false, false, false, false]
 
 document.addEventListener('keydown', (event) => {
-    switch(event.keyCode) {
+    // console.log(event.keyCode)
+    switch (event.keyCode) {
         case 87:
-            camera.yMov = -camera.acceleration;
+            controles[0] = true
             break
         case 65:
-            camera.xMov = -camera.acceleration;
+            controles[1] = true
             break
         case 83:
-            camera.yMov = camera.acceleration;
+            controles[2] = true
             break;
         case 68:
-            camera.xMov = camera.acceleration;
-        break;
+            controles[3] = true
+            break;
         default: break;
     }
+    calCameraMov()
 })
 
 
 document.addEventListener('keyup', (event) => {
-    switch(event.keyCode) {
+    switch (event.keyCode) {
         case 87:
-        case 83:
-            camera.yMov = 0;
+            controles[0] = false
             break
         case 65:
-        case 68:
-            camera.xMov = 0;
+            controles[1] = false
             break
+        case 83:
+            controles[2] = false
+            break;
+        case 68:
+            controles[3] = false
+            break;
         default: break;
     }
+    calCameraMov()
 })
 
 
 document.addEventListener('mousemove', (event) => {
-    let offset = 100
-    if(event.clientX < offset){
-        camera.xMov = camera.acceleration
-    }else if(event.clientX > canvas.width - offset){
-        camera.xMov = -camera.acceleration
-    }else{
-        camera.xMov = 0
+    //     let offset = 100
+    //     if(event.clientX < offset){
+    //         camera.xMov = camera.acceleration
+    //     }else if(event.clientX > canvas.width - offset){
+    //         camera.xMov = -camera.acceleration
+    //     }else{
+    //         camera.xMov = 0
+    //     }
+
+
+    //    if(event.clientY < offset){
+    //         camera.yMov = camera.acceleration
+    //    }else if(event.clientY > canvas.height - offset){
+    //        camera.yMov = -camera.acceleration
+    //    }else{
+    //        camera.yMov = 0
+    //    }
+    //    calCameraMov()
+
+})
+
+
+
+function calCameraMov() {
+    console.log(controles)
+    // camera.yMov = 0
+    // camera.xMov = 0
+    if(controles[0]){
+        if(controles[2]){
+            camera.yMov = 0
+        }else{
+            camera.yMov = -camera.acceleration
+        }
+    }else if(controles[2]){
+        camera.yMov = camera.acceleration
+    }else {
+        camera.yMov = 0
     }
 
-
-   if(event.clientY < offset){
-        camera.yMov = camera.acceleration
-   }else if(event.clientY > canvas.height - offset){
-       camera.yMov = -camera.acceleration
-   }else{
-       camera.yMov = 0
-   }
-
-})  
+    if(controles[1]){
+        if(controles[3]){
+            camera.xMov = 0
+        }else{
+            camera.xMov = -camera.acceleration
+        }
+    }else if(controles[3]){
+        camera.xMov = camera.acceleration
+    }else {
+        camera.xMov = 0
+    }
+    // camera.yMov = controles[0] ? (controles[2] ? 0 : -camera.acceleration) : (controles[0] ? camera.acceleration : 0)
+    // camera.yMov = controles[1] ? (controles[3] ? 0 : -camera.acceleration) : (controles[3] ? camera.acceleration : 0)
+}
