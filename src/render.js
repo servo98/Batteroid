@@ -144,7 +144,7 @@ document.addEventListener('mousemove', (event) => {
 
 
 function calCameraMov() {
-    console.log(controles)
+    // console.log(controles)
     // camera.yMov = 0
     // camera.xMov = 0
     if(controles[0]){
