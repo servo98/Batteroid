@@ -1,4 +1,4 @@
-// import * as Say from './prueba';
+import * as Say from './prueba.mjs';
 console.log('yei')
 
 
