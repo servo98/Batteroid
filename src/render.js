@@ -56,7 +56,7 @@ function animate(newtime) {
         // ctx.restore()
         ctx.save();
         ctx.fillStyle = 'green';
-        ctx.rotate(eso)
+        // ctx.rotate(eso)
         eso += camera.acceleration / 1000
         ctx.fillRect(-50, -50, 100, 100);
         ctx.restore();
