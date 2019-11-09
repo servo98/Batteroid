@@ -3,7 +3,7 @@ const controles = [false, false, false, false]
 
 export class Input {
     constructor() {
-        // this.init()
+        this.init()
     }
 
     init() {
