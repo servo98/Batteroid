@@ -1,6 +1,14 @@
-import Timer  from "./Timer.js";
+// import {Timer}  from './Timer.js';
+import {Render}  from './Render.js';
+import {Input} from './Input.js'
 
-let timer = new Timer(60)
+// const timer = new Timer(60)
+const render = new Render(60)
+const input = new Input()
 
 
-timer.starto()
+// timer.init()
+render.render()
+input.init()
+
+
