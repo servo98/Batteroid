@@ -1,9 +1,9 @@
 import {Timer}  from './Timer.js';
+import {Input} from './Input.js'
 
 export class Render extends Timer{
     constructor(fps) {
         super(fps)
-        // this.timer = new Timer(fps)
     }
 
     render(newTime) {
