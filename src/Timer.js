@@ -1,4 +1,4 @@
-export  class Timer {
+export default class Timer {
     constructor(fps) {
         this.fpsInterval = 1000 / fps
         this.then = this.startTime = window.performance.now()

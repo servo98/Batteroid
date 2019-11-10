@@ -5,14 +5,9 @@ canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
 window.onresize = function(){
-
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
     // ctx.scale(3, 3);
-
-
-
-    
 }
 

@@ -3,6 +3,9 @@ import {Loader} from './Loader.js'
 
 export class Map {
     constructor(width, height) {
+
+        this.ready = false
+
         this.width = width
         this.height = height
         this.tiles = []
@@ -18,6 +21,7 @@ export class Map {
         imagesRoutes.push(this.loader.loadImage('resources/green.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
+            this.ready = true
             console.log('All Images loaded')
         })
     }
@@ -33,9 +37,11 @@ export class Map {
     }
 
     draw(ctx) {
+        if(!this.ready)
+            return
         this.tiles.forEach((row) => {
             row.forEach((tile) => {
-                tile.draw(ctx)
+                tile.draw(ctx, this.images[tile.imageId])
             })
         })
     }
