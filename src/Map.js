@@ -47,7 +47,7 @@ export class Map {
             let row = []
             for(let x = 0; x < this.width; x++){
                 let convertidas = this.iso2car(x, y)
-                row.push(new Tile('01', null,  convertidas.x*64 - 32, convertidas.y*64, Math.floor(Math.random() * 4)))
+                row.push(new Tile('01', null,  convertidas.x*64 - 32, convertidas.y*64, Math.floor(Math.random() * 3)+1))
             }
             this.tiles.push(row)
         }

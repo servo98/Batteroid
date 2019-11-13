@@ -10,7 +10,8 @@ export class MapObject {
     draw(ctx, image) {
         // console.log(ctx)
         // console.log(image, this.x, this.y, 64, 64)
-        ctx.drawImage(image, this.x, this.y, 64, 64);
+        if(this.imageId != -1)
+            ctx.drawImage(image, this.x, this.y, 64, 64);
     }
 
 }

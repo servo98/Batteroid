@@ -54,9 +54,14 @@ export class Render extends Timer{
             ctx.fillText(this.getFPSCount()+"   FPS", canvas.width/2, canvas.height/2);
             ctx.textBaseline = 'top'
             let convertidas = this.map.car2iso((this.input.mouseX-canvas.width/2)/64, (this.input.mouseY-canvas.height/2)/64)
-            console.log(convertidas)
-            // ctx.fillText('X: '+convertidas.x+', Y:'+convertidas.y, canvas.width/2, -canvas.height/2)
-            ctx.fillText('X: '+convertidas.x.toFixed(2)+', Y:'+convertidas.y.toFixed(2), canvas.width/2, -canvas.height/2)
+            // console.log(convertidas)
+            let equis = Math.floor(convertidas.x)
+            let lle  =Math.floor(convertidas.y)
+            ctx.fillText('X: '+equis, 'Y:'+lle, canvas.width/2, -canvas.height/2)
+            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
+                ctx.fillText('X: '+equis+', Y: '+lle, canvas.width/2, -canvas.height/2)
+                this.map.tiles[lle][equis].imageId = -1
+            }
             this.map.draw(ctx)
 
             // console.log(this.getTime())
