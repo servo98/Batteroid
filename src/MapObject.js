@@ -12,5 +12,5 @@ export class MapObject {
         // console.log(image, this.x, this.y, 64, 64)
         ctx.drawImage(image, this.x, this.y, 64, 64);
     }
-    
+
 }

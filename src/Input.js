@@ -1,15 +1,16 @@
+import {Map} from './Map.js'
 const controles = [false, false, false, false]
 
 
 export class Input {
     constructor() {
         this.init()
+        this.mouseX = 0
+        this.mouseY = 0 
     }
 
     init() {
-        console.log('Input initiated')
         document.addEventListener('keydown', (event) => {
-            // console.log(event.keyCode)
             switch (event.keyCode) {
                 case 87:
                     controles[0] = true
@@ -22,21 +23,25 @@ export class Input {
                     break;
                 case 68:
                     controles[3] = true
-                    break;
-                default: break;
+                    break
+                default: break
             }
-            console.log('ay we')
-            // calCameraMov()
         })
+        document.addEventListener('mousemove', (event) => {
+            this.mouseX = event.clientX
+            this.mouseY = event.clientY
+            
+        })
+        console.log('Input initiated')
     }
-
+    
 }
 
 
 
 
 // document.addEventListener('keyup', (event) => {
-//     switch (event.keyCode) {
+    //     switch (event.keyCode) {
 //         case 87:
 //             controles[0] = false
 //             break

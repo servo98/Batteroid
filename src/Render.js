@@ -1,6 +1,6 @@
 import Timer  from './Timer.js'
 import {Map} from './Map.js'
-// import {Input} from './Input.js'
+import {Input} from './Input.js'
 const canvas = document.querySelector('#main')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
@@ -16,9 +16,9 @@ window.onresize = function(){
 export class Render extends Timer{
     constructor(fps) {
         super(fps)
-        this.map = new Map(1,1)
+        this.map = new Map(7,7)
         this.load()
-        // this.input = new Input()
+        this.input = new Input()
     }
 
     load() {
@@ -42,16 +42,21 @@ export class Render extends Timer{
             ctx.save()
             ctx.setTransform(1, 0, 0, 1, 0, 0)
             ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.fillStyle = 'rgba(211, 84, 0,1.0)'
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.restore()
-
 
 
 
             ctx.textAlign = 'right';
             ctx.textBaseline = 'bottom'
-            ctx.font = "12px Arial";
-            ctx.fillText(this.getFPSCount()+"   fps", canvas.width/2, canvas.height/2);
-            
+            ctx.font = "24px Arial";
+            ctx.fillText(this.getFPSCount()+"   FPS", canvas.width/2, canvas.height/2);
+            ctx.textBaseline = 'top'
+            let convertidas = this.map.car2iso((this.input.mouseX-canvas.width/2)/64, (this.input.mouseY-canvas.height/2)/64)
+            console.log(convertidas)
+            // ctx.fillText('X: '+convertidas.x+', Y:'+convertidas.y, canvas.width/2, -canvas.height/2)
+            ctx.fillText('X: '+convertidas.x.toFixed(2)+', Y:'+convertidas.y.toFixed(2), canvas.width/2, -canvas.height/2)
             this.map.draw(ctx)
 
             // console.log(this.getTime())

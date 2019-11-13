@@ -1,6 +1,7 @@
 import {Tile} from './Tile.js'
 import {Loader} from './Loader.js'
 
+
 export class Map {
     constructor(width, height) {
 
@@ -13,6 +14,21 @@ export class Map {
         this.images = []
         this.loader = new Loader()
     }
+
+    iso2car(x, y) {
+        return {
+            x: (x - y)/2,
+            y: (x + y) / 4
+        };
+    }
+    
+    car2iso(x, y){
+        return {
+            x: x + (2*y),
+            y: (2*y) - x
+        };
+    }
+
     load() {
         let imagesRoutes = []
         imagesRoutes.push(this.loader.loadImage('resources/purple.png'))
@@ -30,7 +46,8 @@ export class Map {
         for(let y = 0; y < this.height; y++){
             let row = []
             for(let x = 0; x < this.width; x++){
-                row.push(new Tile('01', null, 0, 0, Math.floor(Math.random() * 4)))
+                let convertidas = this.iso2car(x, y)
+                row.push(new Tile('01', null,  convertidas.x*64 - 32, convertidas.y*64, Math.floor(Math.random() * 4)))
             }
             this.tiles.push(row)
         }
@@ -41,6 +58,10 @@ export class Map {
             return
         this.tiles.forEach((row) => {
             row.forEach((tile) => {
+
+                // let convertidas = this.iso2car(tile.x, tile.y)
+                //     ctx.drawImage(images[tile], convertidas.x*64, convertidas.y*64 - z*32);
+                
                 tile.draw(ctx, this.images[tile.imageId])
             })
         })

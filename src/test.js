@@ -7,6 +7,6 @@ const render = new Render(60)
 
 render.render()
 
-console.log(render.map)
+// console.log(render.map)
 
 
