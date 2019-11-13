@@ -10,7 +10,6 @@ window.onresize = function(){
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
-    // ctx.scale(3, 3);
 }
 
 
@@ -54,13 +53,8 @@ export class Render extends Timer{
             ctx.fillText(this.getFPSCount()+"   fps", canvas.width/2, canvas.height/2);
             
             this.map.draw(ctx)
-            // console.log('ay we')
-            // console.log(this.getFPSCount())
-            // console.log(sinceStart / 1000)
-            // // if(currentSecond != pastSecond){
-            // //     pastSecond = currentSecond
-            // //     console.log(Math.round(sinceStart/1000))
-            // // }
+
+            // console.log(this.getTime())
         }
     }
 

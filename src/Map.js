@@ -30,7 +30,7 @@ export class Map {
         for(let y = 0; y < this.height; y++){
             let row = []
             for(let x = 0; x < this.width; x++){
-                row.push(new Tile('01', null, 0, 0, 0))
+                row.push(new Tile('01', null, 0, 0, Math.floor(Math.random() * 4)))
             }
             this.tiles.push(row)
         }
