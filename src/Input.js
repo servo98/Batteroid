@@ -1,33 +1,47 @@
-import {Map} from './Map.js'
-const controles = [false, false, false, false]
-
-
 export class Input {
     constructor() {
         this.init()
         this.mouseX = 0
         this.mouseY = 0 
+        this.controls = [false, false, false, false]
     }
 
     init() {
         document.addEventListener('keydown', (event) => {
             switch (event.keyCode) {
                 case 87:
-                    controles[0] = true
+                    this.controls[0] = true
                     break
                 case 65:
-                    controles[1] = true
+                    this.controls[1] = true
                     break
                 case 83:
-                    controles[2] = true
+                    this.controls[2] = true
                     break;
                 case 68:
-                    controles[3] = true
+                    this.controls[3] = true
                     break
                 default: break
             }
         })
-        document.addEventListener('mousemove', (event) => {
+        document.addEventListener('keyup', (event) => {
+            switch (event.keyCode) {
+                case 87:
+                    this.controls[0] = false
+                    break
+                case 65:
+                    this.controls[1] = false
+                    break
+                case 83:
+                    this.controls[2] = false
+                    break;
+                case 68:
+                    this.controls[3] = false
+                    break
+                default: break
+            }
+        })
+        document.addEventListener('mousemove', event => {
             this.mouseX = event.clientX
             this.mouseY = event.clientY
             

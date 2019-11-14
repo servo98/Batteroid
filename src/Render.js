@@ -5,18 +5,22 @@ const canvas = document.querySelector('#main')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 const ctx = canvas.getContext('2d')
-ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
+let offsetX = window.innerWidth / 2
+let offsetY = window.innerHeight / 2
+ctx.translate(offsetX , offsetY)
 window.onresize = function(){
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-    ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
+    offsetX = window.innerWidth / 2
+    offsetY = window.innerHeight / 2
+    ctx.translate(offsetX , offsetY)
 }
 
 
 export class Render extends Timer{
     constructor(fps) {
         super(fps)
-        this.map = new Map(7,7)
+        this.map = new Map(15,15)
         this.load()
         this.input = new Input()
     }
@@ -49,9 +53,8 @@ export class Render extends Timer{
 
 
             ctx.textAlign = 'right';
-            ctx.textBaseline = 'bottom'
             ctx.font = "24px Arial";
-            ctx.fillText(this.getFPSCount()+"   FPS", canvas.width/2, canvas.height/2);
+            
             ctx.textBaseline = 'top'
             let convertidas = this.map.car2iso((this.input.mouseX-canvas.width/2)/64, (this.input.mouseY-canvas.height/2)/64)
             // console.log(convertidas)
@@ -60,11 +63,25 @@ export class Render extends Timer{
             ctx.fillText('X: '+equis, 'Y:'+lle, canvas.width/2, -canvas.height/2)
             if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
                 ctx.fillText('X: '+equis+', Y: '+lle, canvas.width/2, -canvas.height/2)
-                this.map.tiles[lle][equis].imageId = -1
+                this.map.tiles[lle][equis].hide = true
             }
             this.map.draw(ctx)
-
+            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
+                this.map.tiles[lle][equis].hide = false
+            }
+            ctx.textBaseline = 'bottom'
+            ctx.fillText(this.getFPSCount()+"   FPS", canvas.width/2, canvas.height/2);
             // console.log(this.getTime())
+            // console.log(offsetX, offsetY)
+            if(this.input.controls[0])
+                ctx.translate(0 , -3)
+            if(this.input.controls[1])
+                ctx.translate(-3 , 0)
+            if(this.input.controls[2])
+                ctx.translate(0 , 3)
+            if(this.input.controls[3])
+                ctx.translate(3 , 0)
+            
         }
     }
 

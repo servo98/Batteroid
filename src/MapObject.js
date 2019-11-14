@@ -5,12 +5,13 @@ export class MapObject {
         this.x = x
         this.y = y
         this.imageId = imageId
+        this.hide = false
     }
 
     draw(ctx, image) {
         // console.log(ctx)
         // console.log(image, this.x, this.y, 64, 64)
-        if(this.imageId != -1)
+        if(!this.hide)
             ctx.drawImage(image, this.x, this.y, 64, 64);
     }
 
