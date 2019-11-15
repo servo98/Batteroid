@@ -18,7 +18,7 @@ window.onresize = function(){
 export class Render extends Timer{
     constructor(fps) {
         super(fps)
-        this.map = new Map(10,10)
+        this.map = new Map(50,50)
         this.load()
         this.input = new Input()
     }
@@ -53,17 +53,20 @@ export class Render extends Timer{
             ctx.textAlign = 'right'
             ctx.font = "24px Arial"
             ctx.textBaseline = 'top'
+            ctx.fillStyle = '#44ff00'
             let convertidas = this.map.car2iso((this.input.mouseX-canvas.width/2-offsetX)/64, (this.input.mouseY-canvas.height/2-offsetY)/64)
             let equis = Math.floor(convertidas.x)
             let lle  =Math.floor(convertidas.y)
             if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
-                ctx.fillText('X: '+equis+ 'Y:'+lle, canvas.width/2-offsetX, -canvas.height/2-offsetY)
-                
                 this.map.tiles[lle][equis].hide = true
             }
 
 
             this.map.draw(ctx)
+            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
+                ctx.fillText('X: '+equis+ 'Y:'+lle, canvas.width/2-offsetX, -canvas.height/2-offsetY)
+                
+            }
             if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
                 this.map.tiles[lle][equis].hide = false
             }
