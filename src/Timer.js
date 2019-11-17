@@ -8,13 +8,6 @@ export default class Timer {
         this.frameCount = 0
     }
 
-    init() {
-        console.log('Timer initiated')
-        this.loop()
-        // input.init()
-        
-    }
-
     loop(newtime) {
         if(this.pause)
             return

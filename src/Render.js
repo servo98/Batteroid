@@ -35,6 +35,8 @@ export class Render extends Timer{
     render(newTime) {
         super.loop(newTime)
         requestAnimationFrame(this.render.bind(this));
+        if(this.pause)
+            return
         //INPUT
         // processInput()
         //UPDATE
