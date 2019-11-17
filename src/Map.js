@@ -10,9 +10,9 @@ export class Map {
         this.width = width
         this.height = height
         this.tiles = []
-        this.init()
         this.images = []
         this.loader = new Loader()
+        this.init()
     }
 
     iso2car(x, y) {

@@ -1,31 +1,36 @@
 import Timer  from './Timer.js'
 import {Map} from './Map.js'
 import {Input} from './Input.js'
-const canvas = document.querySelector('#main')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
-const ctx = canvas.getContext('2d')
-let offsetX = 0
-let offsetY = 0
-ctx.translate(window.innerWidth / 2 , window.innerHeight / 2)
-window.onresize = function(){
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    ctx.translate((window.innerWidth / 2)+offsetX , (window.innerHeight / 2)+offsetY)
-}
+import {Camera} from './Camera.js'
+const BACK_GROUND_COLOR = 'rgba(61, 61, 61,1.0)'
 
 
 export class Render extends Timer{
-    constructor(fps) {
+    constructor(fps, canvasId) {
         super(fps)
+
+        this.canvas = document.getElementById(canvasId)
+        this.ctx = this.canvas.getContext('2d')
+        
+        
         this.map = new Map(50,50)
-        this.load()
         this.input = new Input()
+        this.camera = new Camera(0, 0)
+
+        this.canvas.width = window.innerWidth
+        this.canvas.height = window.innerHeight
+        this.camera.width = this.canvas.width
+        this.camera.height = this.canvas.height
+        this.ctx.translate(this.canvas.width / 2 ,this.canvas.height / 2)
+        window.onresize = () => {
+            this.camera.width = this.canvas.width = window.innerWidth
+            this.camera.height = this.canvas.height = window.innerHeight
+            this.ctx.translate((this.camera.width / 2)+this.camera.x , (this.camera.height / 2)+this.camera.y)
+        }
+        this.map.load()
+        
     }
 
-    load() {
-        this.map.load()
-    }
 
     render(newTime) {
         super.loop(newTime)
@@ -35,62 +40,67 @@ export class Render extends Timer{
         //UPDATE
         // update() 
 
-        // console.log(this.elapsed  > this.fpsInterval)
         if (this.elapsed > this.fpsInterval) {
             this.then = this.now - ( this.elapsed %  this.fpsInterval)
 
 
             //CLEAR
-            ctx.save()
-            ctx.setTransform(1, 0, 0, 1, 0, 0)
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
-            ctx.fillStyle = 'rgba(211, 84, 0,1.0)'
-            ctx.fillRect(0, 0, canvas.width, canvas.height)
-            ctx.restore()
+            this.ctx.save()
+            this.ctx.setTransform(1, 0, 0, 1, 0, 0)
+            // this.ctx.clearRect(0, 0, this.camera.width, this.camera.height)  
+            this.ctx.fillStyle = BACK_GROUND_COLOR
+            this.ctx.fillRect(0, 0, this.camera.width, this.camera.height)
+            this.ctx.restore()
 
 
-            //COORDENADAS
-            ctx.textAlign = 'right'
-            ctx.font = "24px Arial"
-            ctx.textBaseline = 'top'
-            ctx.fillStyle = '#44ff00'
-            let convertidas = this.map.car2iso((this.input.mouseX-canvas.width/2-offsetX)/64, (this.input.mouseY-canvas.height/2-offsetY)/64)
-            let equis = Math.floor(convertidas.x)
-            let lle  =Math.floor(convertidas.y)
-            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
-                this.map.tiles[lle][equis].hide = true
+            
+            let convertidas = this.map.car2iso((this.input.mouseX-this.canvas.width/2-this.camera.x)/64, (this.input.mouseY-this.canvas.height/2-this.camera.y)/64)
+            let currentCoords = {
+                x: Math.floor(convertidas.x),
+                y: Math.floor(convertidas.y)
             }
+            // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+            //     this.map.tiles[currentCoords.y][currentCoords.x].hide = true
+            // }
 
 
-            this.map.draw(ctx)
-            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
-                ctx.fillText('X: '+equis+ 'Y:'+lle, canvas.width/2-offsetX, -canvas.height/2-offsetY)
+            this.map.draw(this.ctx)
+
+
+            this.ctx.textAlign = 'right'
+            this.ctx.font = "24px Arial"
+            this.ctx.textBaseline = 'top'
+            this.ctx.fillStyle = 'white'
+            if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y, this.canvas.width/2-this.camera.x, -this.canvas.height/2-this.camera.y)
                 
             }
-            if(equis >= 0 && equis < this.map.tiles[0].length && lle >= 0 && lle < this.map.tiles.length){
-                this.map.tiles[lle][equis].hide = false
-            }
-            ctx.textBaseline = 'bottom'
-            ctx.fillText(this.getFPSCount()+"   FPS | OffX: "+offsetX+" OffY: "+offsetY, canvas.width/2-offsetX, canvas.height/2-offsetY);
+            this.ctx.textBaseline = 'bottom'
+            this.ctx.fillText(this.getFPSCount()+"   FPS | OffX: "+this.camera.x+" OffY: "+this.camera.y, this.canvas.width/2-this.camera.x, this.canvas.height/2-this.camera.y);
+            
+            
+            // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+            //     this.map.tiles[currentCoords.y][currentCoords.x].hide = false
+            // }
 
 
             // console.log(this.getTime())
-            let eso = 3
+            let eso = 4
             if(this.input.controls[0]){
-                offsetY -= eso
-                ctx.translate(0 , -eso)
+                this.camera.moveUp()
+                this.ctx.translate(0 , this.camera.speed)
             }
             if(this.input.controls[1]){
-                offsetX -= eso
-                ctx.translate(-eso , 0)
+                this.camera.moveLeft()
+                this.ctx.translate(this.camera.speed , 0)
             }
             if(this.input.controls[2]){
-                offsetY += eso
-                ctx.translate(0 , eso)
+                this.camera.moveDown()
+                this.ctx.translate(0 , -this.camera.speed)
             }
             if(this.input.controls[3]){
-                offsetX += eso
-                ctx.translate(eso , 0)
+                this.camera.moveRight()
+                this.ctx.translate(-this.camera.speed , 0)
             }
             
         }

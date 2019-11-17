@@ -2,7 +2,7 @@
 import {Render}  from './Render.js';
 
 
-const render = new Render(60)
+const render = new Render(60, 'main')
 
 
 render.render()
