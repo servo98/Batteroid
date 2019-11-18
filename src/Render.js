@@ -13,15 +13,13 @@ export class Render extends Timer{
         this.ctx = this.canvas.getContext('2d')
         
         
-        this.map = new Map(50,50)
+        this.map = new Map(10000,10000)
         this.input = new Input()
         this.camera = new Camera(0, 0)
 
-        this.canvas.width = window.innerWidth
-        this.canvas.height = window.innerHeight
-        this.camera.width = this.canvas.width
-        this.camera.height = this.canvas.height
-        this.ctx.translate(this.canvas.width / 2 ,this.canvas.height / 2)
+        this.camera.width = this.canvas.width = window.innerWidth
+        this.camera.height = this.canvas.height = window.innerHeight
+        this.ctx.translate(this.camera.width / 2 ,this.camera.height / 2)
         window.onresize = () => {
             this.camera.width = this.canvas.width = window.innerWidth
             this.camera.height = this.canvas.height = window.innerHeight
@@ -54,7 +52,6 @@ export class Render extends Timer{
             this.ctx.fillRect(0, 0, this.camera.width, this.camera.height)
             this.ctx.restore()
 
-
             
             let convertidas = this.map.car2iso((this.input.mouseX-this.canvas.width/2-this.camera.x)/64, (this.input.mouseY-this.canvas.height/2-this.camera.y)/64)
             let currentCoords = {
@@ -66,7 +63,7 @@ export class Render extends Timer{
             // }
 
 
-            this.map.draw(this.ctx)
+            this.map.draw(this.ctx, this.camera)
 
 
             this.ctx.textAlign = 'right'
@@ -86,8 +83,7 @@ export class Render extends Timer{
             // }
 
 
-            // console.log(this.getTime())
-            let eso = 4
+            // console.log(this.camera.x, this.camera.y)
             if(this.input.controls[0]){
                 this.camera.moveUp()
                 this.ctx.translate(0 , this.camera.speed)
