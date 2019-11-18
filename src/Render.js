@@ -13,7 +13,7 @@ export class Render extends Timer{
         this.ctx = this.canvas.getContext('2d')
         
         
-        this.map = new Map(10000,10000)
+        this.map = new Map(1000,1000)
         this.input = new Input()
         this.camera = new Camera(0, 0)
 
