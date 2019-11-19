@@ -5,7 +5,7 @@ export class Camera {
         this.id = id
         this.width = width
         this.height = height
-        this.offset = 64
+        this.offset = 100
         this.speed = 4
     }
 

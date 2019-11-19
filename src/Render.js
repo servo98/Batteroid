@@ -13,7 +13,7 @@ export class Render extends Timer{
         this.ctx = this.canvas.getContext('2d')
         
         
-        this.map = new Map(1,1)
+        this.map = new Map(1000,1000)
         this.input = new Input()
         this.camera = new Camera(-window.innerWidth/2, -window.innerHeight/2)
 
@@ -23,7 +23,7 @@ export class Render extends Timer{
         window.onresize = () => {
             this.camera.width = this.canvas.width = window.innerWidth
             this.camera.height = this.canvas.height = window.innerHeight
-            this.ctx.translate(this.camera.width/2 , this.camera.height/2)
+            this.ctx.translate(-this.camera.x , -this.camera.y)
         }
         this.map.load()
         
