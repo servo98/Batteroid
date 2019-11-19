@@ -54,20 +54,22 @@ export class Map {
     }
 
     draw(ctx, camera) {
-        console.log(-camera.width/2, camera.width/2)
+        // console.log(camera.x, camera.x+camera.width)
         if(!this.ready)
             return
         this.tiles.forEach((row) => {
             row.forEach((tile) => {
-
+                // console.log(-camera.width/2 - camera.x)
                 // let convertidas = this.iso2car(tile.x, tile.y)
                 //     ctx.drawImage(images[tile], convertidas.x*64, convertidas.y*64 - z*32);
-                if(tile.x >= -camera.width/2 - camera.x &&
-                    tile.x <= camera.width/2 - camera.x - 100 &&
-                    tile.y >= -camera.height/2 - camera.y &&
-                    tile.y <= camera.height/2 - camera.y - 100){
+
+
+                // if(tile.x >= -camera.width/2 - camera.x &&
+                //     tile.x <= camera.width/2 - camera.x - 100 &&
+                //     tile.y >= -camera.height/2 - camera.y &&
+                //     tile.y <= camera.height/2 - camera.y - 100){
                     tile.draw(ctx, this.images[tile.imageId])
-                }
+                // }
             })
         })
     }

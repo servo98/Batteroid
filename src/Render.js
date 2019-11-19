@@ -13,9 +13,9 @@ export class Render extends Timer{
         this.ctx = this.canvas.getContext('2d')
         
         
-        this.map = new Map(1000,1000)
+        this.map = new Map(1,1)
         this.input = new Input()
-        this.camera = new Camera(0, 0)
+        this.camera = new Camera(-window.innerWidth/2, -window.innerHeight/2)
 
         this.camera.width = this.canvas.width = window.innerWidth
         this.camera.height = this.canvas.height = window.innerHeight
@@ -23,7 +23,7 @@ export class Render extends Timer{
         window.onresize = () => {
             this.camera.width = this.canvas.width = window.innerWidth
             this.camera.height = this.canvas.height = window.innerHeight
-            this.ctx.translate((this.camera.width / 2)+this.camera.x , (this.camera.height / 2)+this.camera.y)
+            this.ctx.translate(this.camera.width/2 , this.camera.height/2)
         }
         this.map.load()
         
@@ -53,14 +53,14 @@ export class Render extends Timer{
             this.ctx.restore()
 
             
-            let convertidas = this.map.car2iso((this.input.mouseX-this.canvas.width/2-this.camera.x)/64, (this.input.mouseY-this.canvas.height/2-this.camera.y)/64)
+            let convertidas = this.map.car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
             let currentCoords = {
                 x: Math.floor(convertidas.x),
                 y: Math.floor(convertidas.y)
             }
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             //     this.map.tiles[currentCoords.y][currentCoords.x].hide = true
-            // }
+            // }sd
 
 
             this.map.draw(this.ctx, this.camera)
@@ -71,11 +71,11 @@ export class Render extends Timer{
             this.ctx.textBaseline = 'top'
             this.ctx.fillStyle = 'white'
             if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
-                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y, this.canvas.width/2-this.camera.x, -this.canvas.height/2-this.camera.y)
-                
+                console.log('ay')
+                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
             }
             this.ctx.textBaseline = 'bottom'
-            this.ctx.fillText(this.getFPSCount()+"   FPS | OffX: "+this.camera.x+" OffY: "+this.camera.y, this.canvas.width/2-this.camera.x, this.canvas.height/2-this.camera.y);
+            this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
             
             
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
