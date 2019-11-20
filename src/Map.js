@@ -38,7 +38,7 @@ export class Map {
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
-            console.log('All Images loaded')
+            console.log('All Images of Tiles are loaded')
         })
     }
 

@@ -1,5 +1,6 @@
 import Timer  from './Timer.js'
 import {Map} from './Map.js'
+import Interface from './Interface.js'
 import {Input} from './Input.js'
 import {Camera} from './Camera.js'
 const BACK_GROUND_COLOR = 'rgba(61, 61, 61,1.0)'
@@ -14,6 +15,7 @@ export class Render extends Timer{
         
         
         this.map = new Map(1000,1000)
+        this.interface = new Interface()
         this.input = new Input()
         this.camera = new Camera(-window.innerWidth/2, -window.innerHeight/2)
 
@@ -26,6 +28,7 @@ export class Render extends Timer{
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
         this.map.load()
+        this.interface.load()
         
     }
 
@@ -36,6 +39,25 @@ export class Render extends Timer{
         if(this.pause)
             return
         //INPUT
+        if(this.input.controls[0]){
+            this.camera.moveUp()
+            this.ctx.translate(0 , this.camera.speed)
+        }
+        if(this.input.controls[1]){
+            this.camera.moveLeft()
+            this.ctx.translate(this.camera.speed , 0)
+        }
+        if(this.input.controls[2]){
+            this.camera.moveDown()
+            this.ctx.translate(0 , -this.camera.speed)
+        }
+        if(this.input.controls[3]){
+            this.camera.moveRight()
+            this.ctx.translate(-this.camera.speed , 0)
+        }
+        this.interface.cursor.x = this.input.mouseX + this.camera.x 
+        this.interface.cursor.y = this.input.mouseY + this.camera.y
+
         // processInput()
         //UPDATE
         // update() 
@@ -83,22 +105,7 @@ export class Render extends Timer{
 
 
             // console.log(this.camera.x, this.camera.y)
-            if(this.input.controls[0]){
-                this.camera.moveUp()
-                this.ctx.translate(0 , this.camera.speed)
-            }
-            if(this.input.controls[1]){
-                this.camera.moveLeft()
-                this.ctx.translate(this.camera.speed , 0)
-            }
-            if(this.input.controls[2]){
-                this.camera.moveDown()
-                this.ctx.translate(0 , -this.camera.speed)
-            }
-            if(this.input.controls[3]){
-                this.camera.moveRight()
-                this.ctx.translate(-this.camera.speed , 0)
-            }
+            this.interface.draw(this.ctx)
             
         }
     }
