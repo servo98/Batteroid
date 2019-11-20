@@ -71,7 +71,6 @@ export class Render extends Timer{
             this.ctx.textBaseline = 'top'
             this.ctx.fillStyle = 'white'
             if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
-                console.log('ay')
                 this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
             }
             this.ctx.textBaseline = 'bottom'

@@ -1,7 +1,5 @@
 export class MapObject {
-    constructor(id, name, x, y, imageId){
-        this.id = id
-        this.name = name
+    constructor( x, y, imageId){
         this.x = x
         this.y = y
         this.imageId = imageId
@@ -9,8 +7,6 @@ export class MapObject {
     }
 
     draw(ctx, image) {
-        // console.log(ctx)
-        // console.log(image, this.x, this.y, 64, 64)
         if(!this.hide)
             ctx.drawImage(image, this.x, this.y, 64, 64);
     }
