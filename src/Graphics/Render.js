@@ -4,6 +4,8 @@ import Interface from '../Elements/Interface.js'
 import Input from '../Utils/Input.js'
 import Camera from './Camera.js'
 
+import {car2iso} from '../Utils/CoordsConverter.js'
+
 
 export default class Render extends Timer{
     constructor(fps, canvasId) {
@@ -59,30 +61,30 @@ export default class Render extends Timer{
 
 
 
-            // let convertidas = this.map.car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
-            // let currentCoords = {
-            //     x: Math.floor(convertidas.x),
-            //     y: Math.floor(convertidas.y)
-            // }
+            let convertidas = car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
+            let currentCoords = {
+                x: Math.floor(convertidas.x),
+                y: Math.floor(convertidas.y)
+            }
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             //     this.map.tiles[currentCoords.y][currentCoords.x].hide = true
-            // }sd
+            // }
 
 
             // this.map.draw(this.ctx, this.camera)
 
 
-            // this.ctx.textAlign = 'right'
-            // this.ctx.font = "24px Arial"
-            // this.ctx.textBaseline = 'top'
-            // this.ctx.fillStyle = 'white'
+            this.ctx.textAlign = 'right'
+            this.ctx.font = "24px Arial"
+            this.ctx.textBaseline = 'top'
+            this.ctx.fillStyle = 'white'
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
-            //     this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
+                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
             // }
 
 
-            // this.ctx.textBaseline = 'bottom'
-            // this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
+            this.ctx.textBaseline = 'bottom'
+            this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
             
             // this.ctx.fillRect(0,0, 10, 10)
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){

@@ -2,6 +2,7 @@ import Tile from './Tile.js'
 import loadImage from '../Utils/Loader.js'
 import Character from './Character.js'
 import {iso2car} from '../Utils/CoordsConverter.js'
+import {KEYS} from '../Utils/Input.js'
 
 export default class Map {
     constructor(width, height) {
@@ -47,8 +48,10 @@ export default class Map {
         })
     }
 
-    update(){
-
+    update(input){
+        if(input.keys[KEYS.SPACE]){
+            console.log('ay wee')
+        }
     }
 
     draw(ctx, camera) {
@@ -56,12 +59,12 @@ export default class Map {
             return
         this.tiles.forEach((row) => {
             row.forEach((tile) => {
-                // if(camera.isInside(tile))
+                if(camera.isInside(tile))
                     tile.draw(ctx, this.images[tile.imageId])
             })
         })
         this.characters.forEach(character => {
-            // if(camera.isInside(character))
+            if(camera.isInside(character))
                 character.draw(ctx)
         })
     }

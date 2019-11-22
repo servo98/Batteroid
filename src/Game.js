@@ -9,14 +9,14 @@ export default class Game {
         this.interface = new Interface()
         this.map = new Map(10,10)
 
-        document.onkeydown =  event => {
-            if(event.keyCode == 32){
-                this.render.pause = !this.render.pause
-                console.log(this.render.pause ? 'Pausa' : 'Reanudando')
+        // document.onkeydown =  event => {
+        //     if(event.keyCode == 32){
+        //         this.render.pause = !this.render.pause
+        //         console.log(this.render.pause ? 'Pausa' : 'Reanudando')
                 
 
-            }
-        }
+        //     }
+        // }
     }
 
     play(){

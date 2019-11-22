@@ -1,4 +1,4 @@
-export function car2iso(){
+export function car2iso(x, y){
     return {
         x: x + (2*y),
         y: (2*y) - x

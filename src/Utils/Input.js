@@ -1,48 +1,56 @@
+export const KEYS = {
+    W: 0,
+    A: 1,
+    S: 2,
+    D: 3,
+    SPACE: 4
+}
 export default class Input {
     constructor() {
-        this.init()
         this.mouseX = 0
         this.mouseY = 0 
-        this.controls = [false, false, false, false]
+        this.keys = [false, false, false, false]
+        this.spaceBar = false
+        this.init()
     }
 
     init() {
 
         document.addEventListener('keydown', (event) => {
             switch (event.keyCode) {
-                //W
                 case 87:
-                    this.controls[0] = true
+                    this.keys[KEYS.W] = true
                     break
-                //A
                 case 65:
-                    this.controls[1] = true
+                    this.keys[KEYS.A] = true
                     break
-                //S
                 case 83:
-                    this.controls[2] = true
+                    this.keys[KEYS.S] = true
                     break;
-                //D
                 case 68:
-                    this.controls[3] = true
+                    this.keys[KEYS.D] = true
                     break
+                case 32:
+                    this.keys[KEYS.SPACE] = true
                 default: break
             }
         })
         document.addEventListener('keyup', (event) => {
             switch (event.keyCode) {
                 case 87:
-                    this.controls[0] = false
+                    this.keys[KEYS.W] = false
                     break
                 case 65:
-                    this.controls[1] = false
+                    this.keys[KEYS.A] = false
                     break
                 case 83:
-                    this.controls[2] = false
+                    this.keys[KEYS.S] = false
                     break;
                 case 68:
-                    this.controls[3] = false
+                    this.keys[KEYS.D] = false
                     break
+                case 32:
+                    this.keys[KEYS.SPACE] = false
                 default: break
             }
         })

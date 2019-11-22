@@ -1,3 +1,4 @@
+import {KEYS} from '../Utils/Input.js'
 export default class Camera {
     constructor(x, y, width = 0, height = 0, id = 0) {
         this.x = x
@@ -5,7 +6,7 @@ export default class Camera {
         this.id = id
         this.width = width
         this.height = height
-        this.offset = 100
+        this.safeOffset = 100
         this.speed = 20
         this.backGroundColor = 'rgba(61, 61, 61,1.0)'
     }
@@ -27,28 +28,24 @@ export default class Camera {
     }
 
     isInside(entity) {
-        return (entity.x >= this.x - this.offset &&
-            entity.x <= this.x + this.width + this.offset &&
-            entity.y >= this.y - this.offset&&
-            entity.y <= this.y + this.height + this.offset)
+        return (entity.x >= this.x - this.safeOffset &&
+            entity.x <= this.x + this.width + this.safeOffset &&
+            entity.y >= this.y - this.safeOffset&&
+            entity.y <= this.y + this.height + this.safeOffset)
     }
 
     update(input) {
-        if(input.controls[0]){
+        if(input.keys[KEYS.W]){
             this.moveUp()
-            // this.ctx.translate(0 , this.camera.speed)
         }
-        if(input.controls[1]){
+        if(input.keys[KEYS.A]){
             this.moveLeft()
-            // this.ctx.translate(this.camera.speed , 0)
         }
-        if(input.controls[2]){
+        if(input.keys[KEYS.S]){
             this.moveDown()
-            // this.ctx.translate(0 , -this.camera.speed)
         }
-        if(input.controls[3]){
+        if(input.keys[KEYS.D]){
             this.moveRight()
-            // this.ctx.translate(-this.camera.speed , 0)
         }
     }
 
