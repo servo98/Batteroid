@@ -1,5 +1,5 @@
 
-import {Render}  from './Render.js';
+import Render  from './Graphics/Render.js';
 
 
 const render = new Render(60, 'main')

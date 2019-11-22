@@ -1,17 +1,17 @@
-import {Tile} from './Tile.js'
-import {Loader} from './Loader.js'
+import Tile from './Tile.js'
+import loadImage from '../Utils/Loader.js'
+import Character from './Character.js'
 
 
-export class Map {
+export default class Map {
     constructor(width, height) {
 
         this.ready = false
-
         this.width = width
         this.height = height
         this.tiles = []
         this.images = []
-        this.loader = new Loader()
+        this.characters = []
         this.init()
     }
 
@@ -31,14 +31,17 @@ export class Map {
 
     load() {
         let imagesRoutes = []
-        imagesRoutes.push(this.loader.loadImage('resources/purple.png'))
-        imagesRoutes.push(this.loader.loadImage('resources/yellow.png'))
-        imagesRoutes.push(this.loader.loadImage('resources/red.png'))
-        imagesRoutes.push(this.loader.loadImage('resources/green.png'))
+        imagesRoutes.push(loadImage('resources/purple.png'))
+        imagesRoutes.push(loadImage('resources/yellow.png'))
+        imagesRoutes.push(loadImage('resources/red.png'))
+        imagesRoutes.push(loadImage('resources/green.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
             console.log('All Images of Tiles are loaded')
+        })
+        this.characters.forEach(character => {
+            character.load()
         })
     }
 
@@ -51,6 +54,10 @@ export class Map {
             }
             this.tiles.push(row)
         }
+        let convertidasCharacter = this.iso2car(0, 0)
+        this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        convertidasCharacter = this.iso2car(3, 4)
+        this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
     }
 
     draw(ctx, camera) {
@@ -58,13 +65,13 @@ export class Map {
             return
         this.tiles.forEach((row) => {
             row.forEach((tile) => {
-                if(tile.x >= camera.x - camera.offset &&
-                    tile.x <= camera.x + camera.width + camera.offset &&
-                    tile.y >= camera.y - camera.offset&&
-                    tile.y <= camera.y + camera.height + camera.offset){
+                if(camera.isInside(tile))
                     tile.draw(ctx, this.images[tile.imageId])
-                }
             })
+        })
+        this.characters.forEach(character => {
+            if(camera.isInside(character))
+                character.draw(ctx)
         })
     }
 }

@@ -1,4 +1,4 @@
-export class Input {
+export default class Input {
     constructor() {
         this.init()
         this.mouseX = 0
@@ -9,15 +9,19 @@ export class Input {
     init() {
         document.addEventListener('keydown', (event) => {
             switch (event.keyCode) {
+                //W
                 case 87:
                     this.controls[0] = true
                     break
+                //A
                 case 65:
                     this.controls[1] = true
                     break
+                //S
                 case 83:
                     this.controls[2] = true
                     break;
+                //D
                 case 68:
                     this.controls[3] = true
                     break

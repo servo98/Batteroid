@@ -1,20 +1,19 @@
-import Timer  from './Timer.js'
-import {Map} from './Map.js'
-import Interface from './Interface.js'
-import {Input} from './Input.js'
-import {Camera} from './Camera.js'
-const BACK_GROUND_COLOR = 'rgba(61, 61, 61,1.0)'
+import Timer  from '../Utils/Timer.js'
+import Map from '../Elements/Map.js'
+import Interface from '../Elements/Interface.js'
+import Input from '../Utils/Input.js'
+import Camera from './Camera.js'
 
 
-export class Render extends Timer{
+export default class Render extends Timer{
     constructor(fps, canvasId) {
         super(fps)
 
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext('2d')
         
-        
-        this.map = new Map(1000,1000)
+        this.elemets = []
+        this.map = new Map(10,10)
         this.interface = new Interface()
         this.input = new Input()
         this.camera = new Camera(-window.innerWidth/2, -window.innerHeight/2)
@@ -38,7 +37,11 @@ export class Render extends Timer{
         requestAnimationFrame(this.render.bind(this));
         if(this.pause)
             return
-        //INPUT
+
+
+        //UPDATE
+        this.update()
+
         if(this.input.controls[0]){
             this.camera.moveUp()
             this.ctx.translate(0 , this.camera.speed)
@@ -58,23 +61,20 @@ export class Render extends Timer{
         this.interface.cursor.x = this.input.mouseX + this.camera.x 
         this.interface.cursor.y = this.input.mouseY + this.camera.y
 
-        // processInput()
-        //UPDATE
-        // update() 
+        
 
         if (this.elapsed > this.fpsInterval) {
             this.then = this.now - ( this.elapsed %  this.fpsInterval)
 
 
             //CLEAR
-            this.ctx.save()
-            this.ctx.setTransform(1, 0, 0, 1, 0, 0)
-            // this.ctx.clearRect(0, 0, this.camera.width, this.camera.height)  
-            this.ctx.fillStyle = BACK_GROUND_COLOR
-            this.ctx.fillRect(0, 0, this.camera.width, this.camera.height)
-            this.ctx.restore()
+            this.clear()
 
-            
+            //DRAW
+            this.draw()
+
+
+
             let convertidas = this.map.car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
             let currentCoords = {
                 x: Math.floor(convertidas.x),
@@ -112,6 +112,21 @@ export class Render extends Timer{
 
     getFPSCount() {
         return Math.round(1000 / (this.getTime() / ++this.frameCount) * 100) / 100;
+    }
+
+    update() {
+        this.elemets.forEach(element => element.update())
+    }
+    clear() {
+        this.ctx.save()
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0)
+        this.ctx.clearRect(0, 0, this.camera.width, this.camera.height)  
+        this.ctx.fillStyle = this.camera.backGroundColor
+        this.ctx.fillRect(0, 0, this.camera.width, this.camera.height)
+        this.ctx.restore()
+    }
+    draw() {
+        this.elemets.forEach(element => element.draw(this.ctx))
     }
 
 }
