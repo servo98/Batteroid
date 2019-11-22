@@ -5,7 +5,7 @@ export default class Character extends MapObject{
         super(x, y, imageId, 64, 64)
         this.ready = false
         this.x = x
-        this.y = y-16-8
+        this.y = y-24
         this.imageId = imageId
         this.images = []
     }

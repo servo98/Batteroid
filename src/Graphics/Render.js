@@ -26,11 +26,12 @@ export default class Render extends Timer{
             this.camera.height = this.canvas.height = window.innerHeight
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
-        this.map.load()
-        this.interface.load()
         
     }
 
+    load() {
+        this.elemets.forEach((element => element.load()))
+    }
 
     render(newTime) {
         super.loop(newTime)
@@ -42,24 +43,7 @@ export default class Render extends Timer{
         //UPDATE
         this.update()
 
-        if(this.input.controls[0]){
-            this.camera.moveUp()
-            this.ctx.translate(0 , this.camera.speed)
-        }
-        if(this.input.controls[1]){
-            this.camera.moveLeft()
-            this.ctx.translate(this.camera.speed , 0)
-        }
-        if(this.input.controls[2]){
-            this.camera.moveDown()
-            this.ctx.translate(0 , -this.camera.speed)
-        }
-        if(this.input.controls[3]){
-            this.camera.moveRight()
-            this.ctx.translate(-this.camera.speed , 0)
-        }
-        this.interface.cursor.x = this.input.mouseX + this.camera.x 
-        this.interface.cursor.y = this.input.mouseY + this.camera.y
+        
 
         
 
@@ -75,37 +59,39 @@ export default class Render extends Timer{
 
 
 
-            let convertidas = this.map.car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
-            let currentCoords = {
-                x: Math.floor(convertidas.x),
-                y: Math.floor(convertidas.y)
-            }
+            // let convertidas = this.map.car2iso((this.input.mouseX+this.camera.x)/64, (this.input.mouseY+this.camera.y)/64)
+            // let currentCoords = {
+            //     x: Math.floor(convertidas.x),
+            //     y: Math.floor(convertidas.y)
+            // }
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             //     this.map.tiles[currentCoords.y][currentCoords.x].hide = true
             // }sd
 
 
-            this.map.draw(this.ctx, this.camera)
+            // this.map.draw(this.ctx, this.camera)
 
 
-            this.ctx.textAlign = 'right'
-            this.ctx.font = "24px Arial"
-            this.ctx.textBaseline = 'top'
-            this.ctx.fillStyle = 'white'
-            if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
-                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
-            }
-            this.ctx.textBaseline = 'bottom'
-            this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
+            // this.ctx.textAlign = 'right'
+            // this.ctx.font = "24px Arial"
+            // this.ctx.textBaseline = 'top'
+            // this.ctx.fillStyle = 'white'
+            // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+            //     this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
+            // }
+
+
+            // this.ctx.textBaseline = 'bottom'
+            // this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
             
-            
+            // this.ctx.fillRect(0,0, 10, 10)
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             //     this.map.tiles[currentCoords.y][currentCoords.x].hide = false
             // }
 
 
             // console.log(this.camera.x, this.camera.y)
-            this.interface.draw(this.ctx)
+            // this.interface.draw(this.ctx)
             
         }
     }
@@ -115,7 +101,12 @@ export default class Render extends Timer{
     }
 
     update() {
-        this.elemets.forEach(element => element.update())
+
+        
+        
+
+        this.camera.update(this.input)
+        this.elemets.forEach(element => element.update(this.input, this.camera))
     }
     clear() {
         this.ctx.save()
@@ -126,7 +117,12 @@ export default class Render extends Timer{
         this.ctx.restore()
     }
     draw() {
-        this.elemets.forEach(element => element.draw(this.ctx))
+        this.camera.draw(this.ctx)
+        this.elemets.forEach(element => element.draw(this.ctx, this.camera))
+    }
+
+    addElement(element) {
+        this.elemets.push(element)
     }
 
 }

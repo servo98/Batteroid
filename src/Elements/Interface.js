@@ -17,6 +17,11 @@ export default class Interface {
         })
     }
 
+    update(input, camera) {
+        this.cursor.x = input.mouseX + camera.x 
+        this.cursor.y = input.mouseY + camera.y
+    }
+
     draw(ctx) {
         if(!this.ready)
             return

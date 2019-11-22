@@ -7,6 +7,7 @@ export default class Input {
     }
 
     init() {
+
         document.addEventListener('keydown', (event) => {
             switch (event.keyCode) {
                 //W

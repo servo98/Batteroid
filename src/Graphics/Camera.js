@@ -32,4 +32,28 @@ export default class Camera {
             entity.y >= this.y - this.offset&&
             entity.y <= this.y + this.height + this.offset)
     }
+
+    update(input) {
+        if(input.controls[0]){
+            this.moveUp()
+            // this.ctx.translate(0 , this.camera.speed)
+        }
+        if(input.controls[1]){
+            this.moveLeft()
+            // this.ctx.translate(this.camera.speed , 0)
+        }
+        if(input.controls[2]){
+            this.moveDown()
+            // this.ctx.translate(0 , -this.camera.speed)
+        }
+        if(input.controls[3]){
+            this.moveRight()
+            // this.ctx.translate(-this.camera.speed , 0)
+        }
+    }
+
+    draw(ctx) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.translate(-this.x, -this.y)
+    }
 }
