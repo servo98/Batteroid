@@ -4,7 +4,7 @@ import Interface from '../Elements/Interface.js'
 import Input from '../Utils/Input.js'
 import Camera from './Camera.js'
 
-import {car2iso} from '../Utils/CoordsConverter.js'
+import {car2iso} from '../Utils/Converter.js'
 
 
 export default class Render extends Timer{

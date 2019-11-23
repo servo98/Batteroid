@@ -1,7 +1,7 @@
 import Tile from './Tile.js'
 import loadImage from '../Utils/Loader.js'
 import Character from './Character.js'
-import {iso2car} from '../Utils/CoordsConverter.js'
+import {iso2car} from '../Utils/Converter.js'
 
 export default class Map {
     constructor(width, height) {

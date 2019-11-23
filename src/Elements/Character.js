@@ -29,8 +29,12 @@ export default class Character extends MapObject{
             this.isShooting = true
             this.projectiles.push(new Projectile(this.x+this.width/2, this.y+this.height/2, 100, 0, 0, 13, 13))
         }
-        this.projectiles.forEach((projectile => {
+        this.projectiles.forEach(((projectile, index) => {
             projectile.update()
+            if(projectile.hit){
+                this.projectiles.splice(index, 1)
+                this.isShooting = false
+            }
         }))
     }
 
