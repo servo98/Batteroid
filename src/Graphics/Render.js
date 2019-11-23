@@ -94,12 +94,13 @@ export default class Render extends Timer{
 
             // console.log(this.camera.x, this.camera.y)
             // this.interface.draw(this.ctx)
+            // console.log((this.framesNumber()/1000).toFixed(2))
             
         }
     }
 
     getFPSCount() {
-        return Math.round(1000 / (this.getTime() / ++this.frameCount) * 100) / 100;
+        return Math.round(1000 / (this.framesNumber() / ++this.frameCount) * 100) / 100;
     }
 
     update() {

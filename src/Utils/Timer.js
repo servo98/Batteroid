@@ -15,7 +15,7 @@ export default class Timer {
         this.elapsed = this.now - this.then;
     }
 
-    getTime() {
+    framesNumber() {
         return this.now - this.startTime
     }
     
