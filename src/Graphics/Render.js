@@ -14,9 +14,8 @@ export default class Render extends Timer{
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext('2d')
         
-        this.elemets = []
-        this.map = new Map(10,10)
-        this.interface = new Interface()
+        this.map = undefined
+        this.interface = undefined
         this.input = new Input()
         this.camera = new Camera(-window.innerWidth/2, -window.innerHeight/2)
 
@@ -29,10 +28,6 @@ export default class Render extends Timer{
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
         
-    }
-
-    load() {
-        this.elemets.forEach((element => element.load()))
     }
 
     render(newTime) {
@@ -109,7 +104,9 @@ export default class Render extends Timer{
         
 
         this.camera.update(this.input)
-        this.elemets.forEach(element => element.update(this.input, this.camera))
+        this.map.update(this.input, this.camera)
+        this.interface.update(this.input, this.camera)
+        // this.elemets.forEach(element => element.update(this.input, this.camera))
     }
     clear() {
         this.ctx.save()
@@ -121,11 +118,17 @@ export default class Render extends Timer{
     }
     draw() {
         this.camera.draw(this.ctx)
-        this.elemets.forEach(element => element.draw(this.ctx, this.camera))
+        this.map.draw(this.ctx, this.camera)
+        this.interface.draw(this.ctx, this.camera)
+        // this.elemets.forEach(element => element.draw(this.ctx, this.camera))
+    }
+    
+    setMap(map) {
+        this.map = map
     }
 
-    addElement(element) {
-        this.elemets.push(element)
+    setCurrentInterface(intr) {
+        this.interface = intr
     }
 
 }

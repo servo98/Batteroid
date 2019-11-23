@@ -6,23 +6,24 @@ import Map from './Elements/Map.js'
 export default class Game {
     constructor(){
         this.render = new Render(60, 'main')
-        this.interface = new Interface()
-        this.map = new Map(10,10)
-
-        // document.onkeydown =  event => {
-        //     if(event.keyCode == 32){
-        //         this.render.pause = !this.render.pause
-        //         console.log(this.render.pause ? 'Pausa' : 'Reanudando')
-                
-
-        //     }
-        // }
+        this.players = []
+        this.numOfUnits = []
     }
-
+    
     play(){
-        this.render.addElement(this.map)
-        this.render.addElement(this.interface)
-        this.render.load()
+        let mainMenuInterface = new Interface()
+        mainMenuInterface.addElement(50, 100, 128, 32, 1)
+        mainMenuInterface.addElement(50, 200, 128, 32, 1)
+        mainMenuInterface.addElement(50, 300, 128, 32, 1)
+        mainMenuInterface.addElement(50, 400, 128, 32, 1)
+        this.render.setCurrentInterface(mainMenuInterface)
+        let wTemp = (Math.random()*10)+1
+        let menuMap = new Map(wTemp, wTemp)
+        this.render.camera.y += wTemp*32/2
+        this.render.setMap(menuMap)
         this.render.render()
+        // this.players = prompt('Number of players')
+        // this.numOfUnits = prompt('Units per player')
+
     }
 }

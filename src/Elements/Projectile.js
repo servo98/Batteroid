@@ -8,7 +8,7 @@ export default class Projectile extends MapObject{
         this.originY = y
         this.xDest = xDest
         this.yDest = yDest
-        this.speed = 500
+        this.speed = 40
         this.initialTime = window.performance.now()
         this.images = []
         this.ready = false
@@ -28,11 +28,11 @@ export default class Projectile extends MapObject{
     }
 
     update() {
-        // console.log((window.performance.now()-this.initialTime)/1000)
-        // console.log(this.x, this.y)
         this.calulateCoords()
-        if(this.x >= this.xDest)
+        if(this.x >= this.xDest){
+            console.log('Hit')
             this.hit = true
+        }
     }
 
     draw(ctx) {
@@ -44,6 +44,6 @@ export default class Projectile extends MapObject{
     calulateCoords() {
         let currentTime = (window.performance.now()-this.initialTime)/1000
         this.y = this.originY+(this.speed*Math.sin(-this.radians))*currentTime+(30*currentTime*currentTime/2)
-        this.x = currentTime*this.speed*Math.cos(-this.radians)
+        this.x = this.originX+currentTime*this.speed*Math.cos(-this.radians)
     }
 }

@@ -2,6 +2,8 @@ import Tile from './Tile.js'
 import loadImage from '../Utils/Loader.js'
 import Character from './Character.js'
 import {iso2car} from '../Utils/Converter.js'
+import {KEYS} from '../Utils/Input.js'
+import Projectile from './Projectile.js'
 
 export default class Map {
     constructor(width, height) {
@@ -11,6 +13,8 @@ export default class Map {
         this.tiles = []
         this.images = []
         this.characters = []
+        this.projectiles = []
+        this.load()
     }
 
     load() {
@@ -25,9 +29,17 @@ export default class Map {
             this.tiles.push(row)
         }
 
-        let convertidasCharacter = iso2car(0, 0)
+        let convertidasCharacter = iso2car(5, 0)
         this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
-        // convertidasCharacter = iso2car(3, 4)
+        // convertidasCharacter = iso2car(7, 4)
+        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // convertidasCharacter = iso2car(4, 4)
+        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // convertidasCharacter = iso2car(7, 1)
+        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // convertidasCharacter = iso2car(3, 1)
+        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // convertidasCharacter = iso2car(4, 9)
         // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
 
 
@@ -47,9 +59,21 @@ export default class Map {
     }
 
     update(input){
+        if(input.keys[KEYS.SPACE] && !this.isShooting){
+            this.isShooting = true
+            this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
+        }
         this.characters.forEach((character) => {
             character.update(input)
         })
+        this.projectiles.forEach(((projectile, index) => {
+            projectile.update()
+            if(projectile.hit){
+                this.projectiles.splice(index, 1)
+                this.isShooting = false
+            }
+        }))
+        
     }
 
     draw(ctx, camera) {
@@ -65,6 +89,10 @@ export default class Map {
             if(camera.isInside(character))
                 character.draw(ctx, camera)
         })
+        this.projectiles.forEach((projectile => {
+            if(camera.isInside(projectile))
+                projectile.draw(ctx)
+        }))
 
         
     }

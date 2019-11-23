@@ -9,13 +9,13 @@ export default class Input {
     constructor() {
         this.mouseX = 0
         this.mouseY = 0 
-        this.keys = [false, false, false, false]
-        this.spaceBar = false
+        this.keys = []
+        this.leftClick = false
+        this.rightClick = false
         this.init()
     }
 
     init() {
-
         document.addEventListener('keydown', (event) => {
             switch (event.keyCode) {
                 case 87:
@@ -59,52 +59,13 @@ export default class Input {
             this.mouseY = event.clientY
             
         })
+        document.addEventListener('mousedown', event => {
+            this.leftClick  = true
+        })
+        document.addEventListener('mouseup', event => {
+            this.leftClick = false
+        })
         console.log('Input initiated')
     }
     
 }
-
-
-
-
-// document.addEventListener('keyup', (event) => {
-    //     switch (event.keyCode) {
-//         case 87:
-//             controles[0] = false
-//             break
-//         case 65:
-//             controles[1] = false
-//             break
-//         case 83:
-//             controles[2] = false
-//             break;
-//         case 68:
-//             controles[3] = false
-//             break;
-//         default: break;
-//     }
-//     calCameraMov()
-// })
-
-
-// document.addEventListener('mousemove', (event) => {
-//     //     let offset = 100
-//     //     if(event.clientX < offset){
-//     //         camera.xMov = camera.acceleration
-//     //     }else if(event.clientX > canvas.width - offset){
-//     //         camera.xMov = -camera.acceleration
-//     //     }else{
-//     //         camera.xMov = 0
-//     //     }
-
-
-//     //    if(event.clientY < offset){
-//     //         camera.yMov = camera.acceleration
-//     //    }else if(event.clientY > canvas.height - offset){
-//     //        camera.yMov = -camera.acceleration
-//     //    }else{
-//     //        camera.yMov = 0
-//     //    }
-//     //    calCameraMov()
-
-// })
