@@ -9,6 +9,7 @@ export default class Camera {
         this.safeOffset = 100
         this.speed = 20
         this.backGroundColor = 'rgba(61, 61, 61,1.0)'
+        this.canMove = false
     }
 
     moveUp() {
@@ -35,17 +36,19 @@ export default class Camera {
     }
 
     update(input) {
-        if(input.keys[KEYS.W]){
-            this.moveUp()
-        }
-        if(input.keys[KEYS.A]){
-            this.moveLeft()
-        }
-        if(input.keys[KEYS.S]){
-            this.moveDown()
-        }
-        if(input.keys[KEYS.D]){
-            this.moveRight()
+        if(this.canMove) {
+            if(input.keys[KEYS.W]){
+                this.moveUp()
+            }
+            if(input.keys[KEYS.A]){
+                this.moveLeft()
+            }
+            if(input.keys[KEYS.S]){
+                this.moveDown()
+            }
+            if(input.keys[KEYS.D]){
+                this.moveRight()
+            }
         }
     }
 

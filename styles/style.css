@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Computer';
+    src: url('../resources/fonts/computer_font.ttf');
+}
+
 body {
     margin: 0%;
     overflow: hidden;

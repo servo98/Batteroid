@@ -1,5 +1,5 @@
 export default class Player {
-    constructor(health){
-        this.health = health
+    constructor(name){
+        this.name = name
     }
 }

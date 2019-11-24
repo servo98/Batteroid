@@ -1,5 +1,5 @@
 import Tile from './Tile.js'
-import loadImage from '../Utils/Loader.js'
+import {loadImage} from '../Utils/Loader.js'
 import Character from './Character.js'
 import {iso2car} from '../Utils/Converter.js'
 import {KEYS} from '../Utils/Input.js'
@@ -29,8 +29,8 @@ export default class Map {
             this.tiles.push(row)
         }
 
-        let convertidasCharacter = iso2car(5, 0)
-        this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // let convertidasCharacter = iso2car(5, 0)
+        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
         // convertidasCharacter = iso2car(7, 4)
         // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
         // convertidasCharacter = iso2car(4, 4)

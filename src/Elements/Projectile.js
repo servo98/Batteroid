@@ -1,5 +1,5 @@
 import MapObject from './MapObject.js'
-import loadImage from '../Utils/Loader.js'
+import {loadImage} from '../Utils/Loader.js'
 import {deg2rad} from '../Utils/Converter.js'
 export default class Projectile extends MapObject{
     constructor(x, y, xDest, yDest, imageId = 0, width = 64, height = 64) {

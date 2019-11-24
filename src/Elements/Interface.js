@@ -1,5 +1,5 @@
 import MapObject from './MapObject.js' 
-import loadImage from '../Utils/Loader.js'
+import {loadImage} from '../Utils/Loader.js'
 import InterfaceObject from './InterfaceObject.js'
 export default class Interface {
     constructor() {
@@ -9,6 +9,7 @@ export default class Interface {
         this.playerFrames = []
         this.elements = []
         this.load()
+        this.firstClick = true
     }
 
     load() {
@@ -16,6 +17,7 @@ export default class Interface {
         imagesRoutes.push(loadImage('resources/interface/cursor.png'))
         imagesRoutes.push(loadImage('resources/interface/playerFrame.png'))
         imagesRoutes.push(loadImage('resources/interface/add.png'))
+        imagesRoutes.push(loadImage('resources/interface/title.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
@@ -26,10 +28,20 @@ export default class Interface {
     update(input, camera) {
         this.cursor.x = input.mouseX + camera.x 
         this.cursor.y = input.mouseY + camera.y
+
+
         this.elements.forEach(element => {
-            // element.update(input, camera)
-            element.x = camera.x+element.originalX
-            element.y = camera.y+element.originalY
+            if(input.leftClick) {
+                if(this.firstClick) {
+                    // if(element.isClicked(input)){
+                    //     element.handler()
+                    // }
+                    this.firstClick = false
+                }
+            } else {
+                this.firstClick = true
+            }
+            element.update(input, camera)
         })
 
     }
@@ -52,7 +64,7 @@ export default class Interface {
         this.cursor.draw(ctx, this.images[this.cursor.imageId])
     } 
 
-    addElement(x, y, width, height, imageId) {
-        this.elements.push(new InterfaceObject(x, y, imageId, width, height))
+    addElement(x, y, width, height, imageId, text = '') {
+        this.elements.push(new InterfaceObject(x, y, imageId, width, height, text))
     }
 }

@@ -1,5 +1,5 @@
 import MapObject from './MapObject.js'
-import loadImage from '../Utils/Loader.js'
+import {loadImage} from '../Utils/Loader.js'
 
 export default class Character extends MapObject{
     constructor(x, y, imageId = 0) {

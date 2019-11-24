@@ -1,8 +1,7 @@
 import Timer  from '../Utils/Timer.js'
-import Map from '../Elements/Map.js'
-import Interface from '../Elements/Interface.js'
 import Input from '../Utils/Input.js'
 import Camera from './Camera.js'
+import AudioManagement from '../Audio/AudioManagement.js'
 
 import {car2iso} from '../Utils/Converter.js'
 
@@ -13,7 +12,7 @@ export default class Render extends Timer{
 
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext('2d')
-        
+        this.audioManager = new AudioManagement()
         this.map = undefined
         this.interface = undefined
         this.input = new Input()
@@ -27,7 +26,7 @@ export default class Render extends Timer{
             this.camera.height = this.canvas.height = window.innerHeight
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
-        
+        this.firstClick = true
     }
 
     render(newTime) {
@@ -40,6 +39,13 @@ export default class Render extends Timer{
         //UPDATE
         this.update()
 
+
+        if(this.input.leftClick) {
+            if(this.firstClick) {
+                this.firstClick = false
+                this.audioManager.playAudio('resources/sounds/intro.mp3')
+            }
+        }
         
 
         
@@ -68,19 +74,19 @@ export default class Render extends Timer{
 
             // this.map.draw(this.ctx, this.camera)
 
+            // this.ctx.save()
+            // this.ctx.textAlign = 'right'
+            // this.ctx.font = "24px Arial"
+            // this.ctx.textBaseline = 'top'
+            // this.ctx.fillStyle = 'white'
+            // // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+            // this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
+            // // }
 
-            this.ctx.textAlign = 'right'
-            this.ctx.font = "24px Arial"
-            this.ctx.textBaseline = 'top'
-            this.ctx.fillStyle = 'white'
-            // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
-                this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
-            // }
 
-
-            this.ctx.textBaseline = 'bottom'
-            this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
-            
+            // this.ctx.textBaseline = 'bottom'
+            // this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
+            // this.ctx.restore()
             // this.ctx.fillRect(0,0, 10, 10)
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             //     this.map.tiles[currentCoords.y][currentCoords.x].hide = false
