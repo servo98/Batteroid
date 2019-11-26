@@ -15,10 +15,14 @@ export default class Game {
     play(){
         let mainMenuInterface = new Interface()
         //TITE
-        mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3)
+        mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3, '', null)
 
         //Play
-        mainMenuInterface.addElement(50, 300, 128*3, 32*3, 1, 'play')
+        mainMenuInterface.addElement(50, 300, 128*3, 32*3, 1, 'play', () => {
+            this.render.camera.canMove = true
+            mainMenuInterface = new Interface()
+            this.render.setCurrentInterface(mainMenuInterface)
+        })
 
         //E
         // mainMenuInterface.addElement(50, 100+64*1, 128, 32, 1)
@@ -34,11 +38,26 @@ export default class Game {
         let wTemp = (Math.random()*10)+1
         let menuMap = new Map(wTemp, wTemp)
         // let menuMap = new Map(0, 0)
-        this.render.camera.y +=  wTemp*32/2 - 200
+        // this.render.camera.y +=  wTemp*32/2 - 200
         this.render.setMap(menuMap)
         this.render.render()
         // this.players = prompt('Number of players')
         // this.numOfUnits = prompt('Units per player')
+
+
+        document.dispatchEvent(new Event('click'))
+        document.onclick = () => {
+            this.render.audioManager.playAudio('resources/sounds/intro.mp3')
+        }
+
+
+
+        // if(this.input.leftClick) {
+        //     if(this.firstClick) {
+        //         this.firstClick = false
+        //         this.audioManager.playAudio('resources/sounds/intro.mp3')
+        //     }
+        // }
 
     }
     

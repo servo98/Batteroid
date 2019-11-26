@@ -36,6 +36,7 @@ export default class Camera {
     }
 
     update(input) {
+        // console.log(this.canMove)
         if(this.canMove) {
             if(input.keys[KEYS.W]){
                 this.moveUp()

@@ -1,12 +1,10 @@
 import MapObject from './MapObject.js'
 export default class InterfaceObject extends MapObject{
-    constructor( x, y, imageId = 0, width = 64, height = 64, text){
+    constructor( x, y, imageId = 0, width = 64, height = 64, text, handler){
         super( x, y, imageId, width, height)
         this.originalX = x
         this.originalY = y
-        this.handler = () => {
-            console.log('element')
-        }
+        this.handler = handler
         this.text = text
     }
 
@@ -26,7 +24,15 @@ export default class InterfaceObject extends MapObject{
     }
 
     isClicked(input) {
-        return (console.log())
+        // console.log(this.originalX, this.originalY)
+        // console.log(input.mouseX, input.mouseY)
+        // console.log(this.originalX < input.mouseX, this.originalX+this.width > input.mouseX, this.originalY <input.mouseY, this.originalY+this.height > input.mouseY)
+        return (
+            this.originalX < input.mouseX &&
+            this.originalX+this.width > input.mouseX &&
+            this.originalY <input.mouseY &&
+            this.originalY+this.height > input.mouseY
+        )
     }
 
 

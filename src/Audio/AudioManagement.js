@@ -1,7 +1,7 @@
 import {loadSound} from '../Utils/Loader.js'
 export default class AudioManagement {
     constructor(){
-        let sounds = []
+        // let sounds = []
         this.ready = false
     }
 
@@ -32,16 +32,16 @@ export default class AudioManagement {
         })
     }
 
-    playSound(index) {
-        this.sounds[index].play()
-    }
+    // playSound(index) {
+    //     this.sounds[index].play()
+    // }
 
-    pauseSound(index) {
-        this.sounds[index].pause()
-    }
+    // pauseSound(index) {
+    //     this.sounds[index].pause()
+    // }
 
-    stopSound(index) {
-        this.sounds[index].pause()
-        this.sounds[index].currentTimne = 0
-    }
+    // stopSound(index) {
+    //     this.sounds[index].pause()
+    //     this.sounds[index].currentTimne = 0
+    // }
 }

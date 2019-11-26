@@ -29,20 +29,23 @@ export default class Interface {
         this.cursor.x = input.mouseX + camera.x 
         this.cursor.y = input.mouseY + camera.y
 
-
+        // console.log(this.elements.length)
         this.elements.forEach(element => {
-            if(input.leftClick) {
-                if(this.firstClick) {
-                    // if(element.isClicked(input)){
-                    //     element.handler()
-                    // }
-                    this.firstClick = false
+            if(input.leftClick && this.firstClick) {
+                // console.log(element.isClicked(input, camera))
+                if(element.isClicked(input, camera)){
+                    // console.log('da')
+                    if(element.handler)
+                        element.handler()
                 }
-            } else {
-                this.firstClick = true
-            }
+            } 
+            
             element.update(input, camera)
         })
+        this.firstClick = false
+        if(!input.leftClick){
+            this.firstClick = true
+        }
 
     }
 
@@ -64,7 +67,7 @@ export default class Interface {
         this.cursor.draw(ctx, this.images[this.cursor.imageId])
     } 
 
-    addElement(x, y, width, height, imageId, text = '') {
-        this.elements.push(new InterfaceObject(x, y, imageId, width, height, text))
+    addElement(x, y, width, height, imageId, text = '', handler = undefined) {
+        this.elements.push(new InterfaceObject(x, y, imageId, width, height, text, handler))
     }
 }

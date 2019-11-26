@@ -34,18 +34,11 @@ export default class Render extends Timer{
         requestAnimationFrame(this.render.bind(this));
         if(this.pause)
             return
-
-
-        //UPDATE
-        this.update()
-
-
-        if(this.input.leftClick) {
-            if(this.firstClick) {
-                this.firstClick = false
-                this.audioManager.playAudio('resources/sounds/intro.mp3')
-            }
-        }
+            
+            //UPDATE
+            this.update()
+            
+            
         
 
         
@@ -105,10 +98,6 @@ export default class Render extends Timer{
     }
 
     update() {
-
-        
-        
-
         this.camera.update(this.input)
         this.map.update(this.input, this.camera)
         this.interface.update(this.input, this.camera)
