@@ -33,10 +33,8 @@ export default class Interface {
         this.elements.forEach(element => {
             if(input.leftClick && this.firstClick) {
                 // console.log(element.isClicked(input, camera))
-                if(element.isClicked(input, camera)){
-                    // console.log('da')
-                    if(element.handler)
-                        element.handler()
+                if(element.isClicked(input, camera) && element.handler){
+                    element.handler()
                 }
             } 
             

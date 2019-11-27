@@ -1,12 +1,15 @@
 import MapObject from './MapObject.js'
 import {loadImage} from '../Utils/Loader.js'
+import {iso2car} from '../Utils/Converter.js'
 
 export default class Character extends MapObject{
     constructor(x, y, imageId = 0) {
-        super(x, y, imageId, 64, 64)
+        let convertidas = iso2car(x, y)
+        // console.log(convertidas.x*64-32, convertidas.y*64)
+        super(convertidas.x*64-32, convertidas.y*64 -24, imageId, 64, 64)
         this.ready = false
-        this.x = x
-        this.y = y-24
+        // this.x = convertidas.x*64-32
+        // this.y = convertidas.y*64 -24
         this.imageId = imageId
         this.images = []
         this.projectiles = []

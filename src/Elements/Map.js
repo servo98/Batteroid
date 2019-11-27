@@ -30,7 +30,7 @@ export default class Map {
         }
 
         // let convertidasCharacter = iso2car(5, 0)
-        // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
+        // this.characters.push(new Character(5, 0))
         // convertidasCharacter = iso2car(7, 4)
         // this.characters.push(new Character(convertidasCharacter.x*64 - 32, convertidasCharacter.y* 64))
         // convertidasCharacter = iso2car(4, 4)

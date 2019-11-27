@@ -27,9 +27,12 @@ export default class Render extends Timer{
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
         this.firstClick = true
+
+        this.STATE = 'MAIN_MENU'
     }
 
     render(newTime) {
+        this.checkGameLogic()
         super.loop(newTime)
         requestAnimationFrame(this.render.bind(this));
         if(this.pause)
@@ -124,6 +127,11 @@ export default class Render extends Timer{
 
     setCurrentInterface(intr) {
         this.interface = intr
+    }
+
+
+    checkGameLogic() {
+        
     }
 
 }
