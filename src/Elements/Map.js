@@ -1,7 +1,6 @@
 import Tile from './Tile.js'
 import {loadImage} from '../Utils/Loader.js'
-import Character from './Character.js'
-import {iso2car} from '../Utils/Converter.js'
+import {iso2car, car2iso} from '../Utils/Converter.js'
 import {KEYS} from '../Utils/Input.js'
 import Projectile from './Projectile.js'
 
@@ -58,7 +57,8 @@ export default class Map {
         })
     }
 
-    update(input){
+    update(input, camera){
+        // console.log(this.characters.length)
         if(input.keys[KEYS.SPACE] && !this.isShooting){
             this.isShooting = true
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
@@ -74,6 +74,18 @@ export default class Map {
             }
         }))
         
+        let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
+        let currentCoords = {
+            x: Math.floor(convertidas.x),
+            y: Math.floor(convertidas.y)
+        }
+
+        if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
+            this.tiles[currentCoords.y][currentCoords.x].hide = true
+        }
+        
+
+
     }
 
     draw(ctx, camera) {
@@ -85,20 +97,20 @@ export default class Map {
                     tile.draw(ctx, this.images[tile.imageId])
             })
         })
+        
         this.characters.forEach(character => {
             if(camera.isInside(character))
-                character.draw(ctx, camera)
+            character.draw(ctx, camera)
         })
+        
         this.projectiles.forEach((projectile => {
             if(camera.isInside(projectile))
-                projectile.draw(ctx)
+            projectile.draw(ctx)
         }))
-
-        
     }
     
 
-    addCharacter(x, y) {
+    addCharacter(character) {
         this.characters.push(character)
     }
 }

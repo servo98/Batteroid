@@ -14,12 +14,13 @@ export default class Game {
     }
     
     play(){
-
+        
+        let menuMap = new Map(10, 10)
 
         
         let mainMenuInterface = new Interface()
         //TITE
-        mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3, '', null)
+        // mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3, '', null)
         //Play
         mainMenuInterface.addElement(50, 300, 128*3, 32*3, 1, 'play', () => {
             this.render.camera.canMove = true
@@ -31,39 +32,45 @@ export default class Game {
             let temp = 0
             this.players.forEach((player) => {
                 for(let i = 0; i < numberOfCharacters; i++){
-                    player.characters.push(new Character(i, temp))
+                    let tmpCharacter = new Character(i, temp)
+                    player.characters.push(tmpCharacter)
+                    menuMap.characters.push(tmpCharacter)
                 }
                 temp += 9
             })
+
+            // console.log(this.players)
             let inGameInterface = new Interface()
             inGameInterface.addElement(10, 10, 200, 80, 1, player1.name, null)
             inGameInterface.addElement(this.render.camera.width-10-200, 10, 200, 80, 1, player2.name, null)
             this.render.setCurrentInterface(inGameInterface)
+            console.log(this.render.map)
+            // this.render.setMap(menuMap)
         })
         this.render.setCurrentInterface(mainMenuInterface)
         
         
         
         
-
-
-
+        
+        
+        
         //E
         // mainMenuInterface.addElement(50, 100+64*1, 128, 32, 1)
         // mainMenuInterface.addElement(50, 100+64*2, 128, 32, 1)
         // mainMenuInterface.addElement(50, 100+64*3, 128, 32, 1)
-
+        
         //ADD
         // mainMenuInterface.addElement(50+64-16, 100+64*4, 32, 32, 2)
-
-
-
+        
+        
+        
         let wTemp = (Math.random()*10)+1
-        let menuMap = new Map(10, 10)
+        this.render.setMap(menuMap)
         // let menuMap = new Map(0, 0)
         // this.render.camera.y +=  wTemp*32/2 - 200
-        this.render.setMap(menuMap)
         this.render.render()
+        console.log(this.render.map)
         // this.players = prompt('Number of players')
         // this.numOfUnits = prompt('Units per player')
 

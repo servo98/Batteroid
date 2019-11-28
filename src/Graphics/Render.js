@@ -26,13 +26,14 @@ export default class Render extends Timer{
             this.camera.height = this.canvas.height = window.innerHeight
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
-        this.firstClick = true
 
-        this.STATE = 'MAIN_MENU'
+        
+        // this.firstClick = true
+        // this.STATE = 'MAIN_MENU'
     }
 
     render(newTime) {
-        this.checkGameLogic()
+        // this.checkGameLogic()
         super.loop(newTime)
         requestAnimationFrame(this.render.bind(this));
         if(this.pause)
@@ -71,17 +72,17 @@ export default class Render extends Timer{
             // this.map.draw(this.ctx, this.camera)
 
             // this.ctx.save()
-            // this.ctx.textAlign = 'right'
-            // this.ctx.font = "24px Arial"
-            // this.ctx.textBaseline = 'top'
-            // this.ctx.fillStyle = 'white'
-            // // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
+            this.ctx.textAlign = 'right'
+            this.ctx.font = "24px Arial"
+            this.ctx.textBaseline = 'top'
+            this.ctx.fillStyle = 'white'
+            // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){
             // this.ctx.fillText('X: '+currentCoords.x+ 'Y:'+currentCoords.y,  this.camera.x+this.camera.width, this.camera.y)   
             // // }
 
 
-            // this.ctx.textBaseline = 'bottom'
-            // this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
+            this.ctx.textBaseline = 'bottom'
+            this.ctx.fillText(this.getFPSCount()+"   FPS", this.camera.x+this.camera.width, this.camera.y+this.camera.height);
             // this.ctx.restore()
             // this.ctx.fillRect(0,0, 10, 10)
             // if(currentCoords.x >= 0 && currentCoords.x < this.map.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.map.tiles.length){

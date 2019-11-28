@@ -14,6 +14,7 @@ export default class Character extends MapObject{
         this.images = []
         this.projectiles = []
         this.isShooting = false
+        this.load()
     }
 
     load() {
@@ -31,7 +32,7 @@ export default class Character extends MapObject{
         
     }
 
-    draw(ctx, camera) {
+    draw(ctx) {
         if(!this.ready)
             return
         super.draw(ctx, this.images[this.imageId])
