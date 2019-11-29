@@ -26,6 +26,7 @@ export default class Render extends Timer{
             this.camera.height = this.canvas.height = window.innerHeight
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
+        this.turn = 0
 
         
         // this.firstClick = true
@@ -118,6 +119,8 @@ export default class Render extends Timer{
     draw() {
         this.camera.draw(this.ctx)
         this.map.draw(this.ctx, this.camera)
+        if(this.map.getCurrentTurn().index != -1)
+            this.interface.elements[this.interface.elements.length-1].text = 'Turno de: '+this.map.getCurrentTurn().name
         this.interface.draw(this.ctx, this.camera)
         // this.elemets.forEach(element => element.draw(this.ctx, this.camera))
     }

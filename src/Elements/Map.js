@@ -5,7 +5,7 @@ import {KEYS} from '../Utils/Input.js'
 import Projectile from './Projectile.js'
 
 export default class Map {
-    constructor(width, height) {
+    constructor(width, height,) {
         this.ready = false
         this.width = width
         this.height = height
@@ -60,14 +60,20 @@ export default class Map {
 
     update(input, camera){
         // console.log(this.characters.length)
+
+        
         if(input.keys[KEYS.SPACE] && !this.isShooting){
             this.isShooting = true
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
         }
 
         this.players.forEach(player => {
-            player.characters.forEach(character => {
-                character.update()
+            player.characters.forEach((character, index) => {
+                if(!character.isDead()){
+                    character.update()
+                } else {
+                    player.characters.splice(index, 1)
+                }
             })
         })
         this.projectiles.forEach(((projectile, index) => {
@@ -113,6 +119,19 @@ export default class Map {
             if(camera.isInside(projectile))
             projectile.draw(ctx)
         }))
+    }
+
+    getCurrentTurn() {
+        // return this.players.length
+        let result = {name: 'Turno de...', index: -1}
+        this.players.forEach((player, index) => {
+            if(player.isTurn){
+                result = {name: player.name, index}
+                return 
+            }
+        })
+        // console.log(result)
+        return result
     }
     
 }

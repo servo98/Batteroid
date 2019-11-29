@@ -15,7 +15,7 @@ export default class Character extends MapObject{
         this.projectiles = []
         this.isShooting = false
         this.load()
-        this.health = 100
+        this.health = 50
     }
 
     load() {
@@ -29,8 +29,7 @@ export default class Character extends MapObject{
         })
     }
 
-    update(input) {
-        
+    update() {
         
     }
 
@@ -39,12 +38,16 @@ export default class Character extends MapObject{
             return
         ctx.save()
         ctx.fillStyle = "rgb(244, 87, 79)"
-        ctx.fillRect(this.x+(this.width/2)-50, this.y-10, 100, 3)
+        ctx.fillRect(this.x+(this.width/2)-25, this.y-10, 50, 3)
         ctx.fillStyle = "rgb(117, 196, 107)"
-        ctx.fillRect(this.x+(this.width/2)-50, this.y-10, this.health, 3)
+        ctx.fillRect(this.x+(this.width/2)-25, this.y-10, this.health, 3)
         ctx.restore()
         super.draw(ctx, this.images[this.imageId])
         
+    }
+
+    isDead() {
+        return this.health <= 0
     }
 
 
