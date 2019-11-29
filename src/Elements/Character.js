@@ -15,11 +15,13 @@ export default class Character extends MapObject{
         this.projectiles = []
         this.isShooting = false
         this.load()
+        this.health = 100
     }
 
     load() {
         let imagesRoutes = []
-        imagesRoutes.push(loadImage('resources/entity.png'))
+        imagesRoutes.push(loadImage('resources/entity1.png'))
+        imagesRoutes.push(loadImage('resources/entity2.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
@@ -35,8 +37,13 @@ export default class Character extends MapObject{
     draw(ctx) {
         if(!this.ready)
             return
+        ctx.save()
+        ctx.fillStyle = "rgb(244, 87, 79)"
+        ctx.fillRect(this.x+(this.width/2)-50, this.y-10, 100, 3)
+        ctx.fillStyle = "rgb(117, 196, 107)"
+        ctx.fillRect(this.x+(this.width/2)-50, this.y-10, this.health, 3)
+        ctx.restore()
         super.draw(ctx, this.images[this.imageId])
-
         
     }
 

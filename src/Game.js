@@ -8,7 +8,6 @@ import Character from './Elements/Character.js'
 export default class Game {
     constructor(){
         this.render = new Render(60, 'main')
-        this.players = []
         this.numOfUnits = []
         // this.STATE = 'MAIN_MENU'
     }
@@ -26,25 +25,26 @@ export default class Game {
             this.render.camera.canMove = true
             let player1 = new Player('Fernando')
             let player2 = new Player('Jugador 2')
-            this.players.push(player1)
-            this.players.push(player2)
+            let players = [player1, player2]
             let numberOfCharacters = 5
             let temp = 0
-            this.players.forEach((player) => {
+            let color = 0
+            players.forEach((player) => {
                 for(let i = 0; i < numberOfCharacters; i++){
-                    let tmpCharacter = new Character(i, temp)
+                    let tmpCharacter = new Character(i, temp, color)
                     player.characters.push(tmpCharacter)
-                    menuMap.characters.push(tmpCharacter)
+                    // menuMap.characters.push(tmpCharacter)
                 }
                 temp += 9
+                color++
             })
+            menuMap.players.push(...players)
 
             // console.log(this.players)
             let inGameInterface = new Interface()
             inGameInterface.addElement(10, 10, 200, 80, 1, player1.name, null)
             inGameInterface.addElement(this.render.camera.width-10-200, 10, 200, 80, 1, player2.name, null)
             this.render.setCurrentInterface(inGameInterface)
-            console.log(this.render.map)
             // this.render.setMap(menuMap)
         })
         this.render.setCurrentInterface(mainMenuInterface)
@@ -67,16 +67,17 @@ export default class Game {
         
         let wTemp = (Math.random()*10)+1
         this.render.setMap(menuMap)
-        // let menuMap = new Map(0, 0)
-        // this.render.camera.y +=  wTemp*32/2 - 200
         this.render.render()
-        console.log(this.render.map)
-        // this.players = prompt('Number of players')
-        // this.numOfUnits = prompt('Units per player')
 
 
         document.onclick = () => {
             this.render.audioManager.playAudio('resources/sounds/intro.mp3')
+        }
+
+        document.onkeydown = (event) => {
+            if(event.keyCode == 70){
+                this.render.map.players[0].characters[0].health -= 10
+            }
         }
 
 

@@ -11,7 +11,7 @@ export default class Map {
         this.height = height
         this.tiles = []
         this.images = []
-        this.characters = []
+        this.players = []
         this.projectiles = []
         this.load()
     }
@@ -52,9 +52,10 @@ export default class Map {
             this.ready = true
             console.log('All Images of Tiles are loaded')
         })
-        this.characters.forEach(character => {
-            character.load()
-        })
+        
+        // this.characters.forEach(character => {
+        //     character.load()
+        // })
     }
 
     update(input, camera){
@@ -63,8 +64,11 @@ export default class Map {
             this.isShooting = true
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
         }
-        this.characters.forEach((character) => {
-            character.update(input)
+
+        this.players.forEach(player => {
+            player.characters.forEach(character => {
+                character.update()
+            })
         })
         this.projectiles.forEach(((projectile, index) => {
             projectile.update()
@@ -97,10 +101,12 @@ export default class Map {
                     tile.draw(ctx, this.images[tile.imageId])
             })
         })
-        
-        this.characters.forEach(character => {
-            if(camera.isInside(character))
-            character.draw(ctx, camera)
+
+        this.players.forEach(player => {
+            player.characters.forEach(character => {
+                if(camera.isInside(character))
+                    character.draw(ctx, camera)
+            })
         })
         
         this.projectiles.forEach((projectile => {
@@ -109,8 +115,4 @@ export default class Map {
         }))
     }
     
-
-    addCharacter(character) {
-        this.characters.push(character)
-    }
 }
