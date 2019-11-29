@@ -3,6 +3,7 @@ import {loadImage} from '../Utils/Loader.js'
 import {iso2car, car2iso} from '../Utils/Converter.js'
 import {KEYS} from '../Utils/Input.js'
 import Projectile from './Projectile.js'
+import playAudio from '../Audio/AudioManagement.js'
 
 export default class Map {
     constructor(width, height,) {
@@ -65,6 +66,7 @@ export default class Map {
         
         if(input.keys[KEYS.SPACE] && !this.isShooting){
             this.isShooting = true
+            playAudio('resources/sounds/launchFirst.mp3')
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
         }
 

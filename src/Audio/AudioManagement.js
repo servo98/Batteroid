@@ -1,17 +1,12 @@
 import {loadSound} from '../Utils/Loader.js'
-export default class AudioManagement {
-    constructor(){
-    }
-
-    playAudio(fileName) {
+export default function playAudio(fileName) {
         
-        loadSound(fileName)
-        .then((audio) => {
-            audio.play()
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }
-
+    loadSound(fileName)
+    .then((audio) => {
+        audio.volume = 0.4
+        audio.play()
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 }

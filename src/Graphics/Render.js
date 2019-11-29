@@ -1,7 +1,7 @@
 import Timer  from '../Utils/Timer.js'
 import Input from '../Utils/Input.js'
 import Camera from './Camera.js'
-import AudioManagement from '../Audio/AudioManagement.js'
+import playAudio from '../Audio/AudioManagement.js'
 
 import {car2iso} from '../Utils/Converter.js'
 
@@ -12,7 +12,6 @@ export default class Render extends Timer{
 
         this.canvas = document.getElementById(canvasId)
         this.ctx = this.canvas.getContext('2d')
-        this.audioManager = new AudioManagement()
         this.map = undefined
         this.interface = undefined
         this.input = new Input()
@@ -139,6 +138,10 @@ export default class Render extends Timer{
     nextTurn() {
         this.map.players[0].isTurn = !this.map.players[0].isTurn
         this.map.players[1].isTurn = !this.map.players[0].isTurn
+    }
+
+    playSound(audio) {
+        playAudio(audio)
     }
 
 }

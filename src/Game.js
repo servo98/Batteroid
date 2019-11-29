@@ -22,7 +22,7 @@ export default class Game {
         mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3, '', null)
         //Play
         mainMenuInterface.addElement(50, 300, 128*3, 32*3, 1, '👉play', () => {
-            this.render.audioManager.playAudio('resources/sounds/click.wav')
+            this.render.playSound('resources/sounds/click.wav')
             this.render.camera.canMove = true
             let player1 = new Player('Fernando')
             player1.isTurn = true
@@ -77,7 +77,7 @@ export default class Game {
 
         document.onclick = () => {
             if(this.firstClick){
-                this.render.audioManager.playAudio('resources/sounds/intro.mp3')
+                this.render.playSound('resources/sounds/intro.mp3')
                 this.firstClick = false
             }
         }
