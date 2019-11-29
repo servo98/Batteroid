@@ -8,8 +8,6 @@ export default class Game {
     constructor(){
         this.render = new Render(60, 'main')
         this.numOfUnits = []
-        // this.STATE = 'MAIN_MENU'
-        // this.firstClick = true
     }
     
     play(){
@@ -30,20 +28,20 @@ export default class Game {
             let player2 = new Player('Jugador 2')
             let players = [player1, player2]
             let numberOfCharacters = 10
-            let temp = 0
+            let temp = 9
             let color = 0
+            let characterId = 0
             players.forEach((player) => {
                 for(let i = 0; i < numberOfCharacters; i++){
-                    let tmpCharacter = new Character(i, temp, color)
-                    player.characters.push(tmpCharacter)
-                    // menuMap.characters.push(tmpCharacter)
+                    let tmpCharacter = new Character(i, temp, color, characterId++)
+                    menuMap.characters[temp][i] = tmpCharacter
+                    // player.characters.push(tmpCharacter)
                 }
-                temp += 9
+                temp -= 9
                 color++
             })
             menuMap.players.push(...players)
 
-            // console.log(this.players)
             let inGameInterface = new Interface()
             inGameInterface.addElement(10, 10, 200, 80, 1, player1.name, null)
             inGameInterface.addElement(this.render.camera.width-10-200, 10, 200, 80, 1, player2.name, null)
@@ -51,23 +49,8 @@ export default class Game {
             inGameInterface.addElement((this.render.camera.width/2) - 200, this.render.camera.height - 100, 400, 80, 1, 'Turno de...', null)
             this.render.setCurrentInterface(inGameInterface)
             this.render.camera.y += 160
-            // this.render.setMap(menuMap)
         })
         this.render.setCurrentInterface(mainMenuInterface)
-        
-        
-        
-        
-        
-        
-        
-        //E
-        // mainMenuInterface.addElement(50, 100+64*1, 128, 32, 1)
-        // mainMenuInterface.addElement(50, 100+64*2, 128, 32, 1)
-        // mainMenuInterface.addElement(50, 100+64*3, 128, 32, 1)
-        
-        //ADD
-        // mainMenuInterface.addElement(50+64-16, 100+64*4, 32, 32, 2)
         
         
         
@@ -75,31 +58,12 @@ export default class Game {
         this.render.setMap(menuMap)
         this.render.render()
 
-
-        // document.onclick = () => {
-        //     console.log(this.render.map.players)
-        // }
-
         document.onkeydown = (event) => {
             if(event.keyCode == 70){
-                this.render.map.players[0].characters[0].health -= 10
+                // this.render.map.players[0].characters[0].health -= 10
+                console.log(this.render.map.characters)
                 this.render.nextTurn()
             }
         }
-
-
-
-        // if(this.input.leftClick) {
-        //     if(this.firstClick) {
-        //         this.firstClick = false
-        //         this.audioManager.playAudio('resources/sounds/intro.mp3')
-        //     }
-        // }
-
     }
-    
-    // addPlayer() {
-    //     let playerName = prompt('Insert new player\'s nane')
-    //     this.players.push(new Player(playerName))
-    // }
 }

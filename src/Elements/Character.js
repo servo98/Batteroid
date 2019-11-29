@@ -3,7 +3,7 @@ import {loadImage} from '../Utils/Loader.js'
 import {iso2car} from '../Utils/Converter.js'
 
 export default class Character extends MapObject{
-    constructor(x, y, imageId = 0) {
+    constructor(x, y, imageId = 0, id) {
         let convertidas = iso2car(x, y)
         // console.log(convertidas.x*64-32, convertidas.y*64)
         super(convertidas.x*64-32, convertidas.y*64 -24, imageId, 64, 64)
@@ -14,9 +14,10 @@ export default class Character extends MapObject{
         this.images = []
         this.projectiles = []
         this.isShooting = false
-        this.load()
         this.health = 50
         this.canMove = false
+        this.id = id
+        this.load()
     }
 
     load() {
@@ -30,7 +31,7 @@ export default class Character extends MapObject{
         })
     }
 
-    update() {
+    update(input, camera) {
         
     }
 
