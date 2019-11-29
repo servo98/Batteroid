@@ -13,6 +13,7 @@ export default class Map {
         this.images = []
         this.players = []
         this.projectiles = []
+        this.isGameOver = false
         this.load()
     }
 
@@ -67,15 +68,23 @@ export default class Map {
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
         }
 
-        this.players.forEach(player => {
-            player.characters.forEach((character, index) => {
+        this.players.forEach((player, indexP) => {
+            player.characters.forEach((character, indexC) => {
                 if(!character.isDead()){
                     character.update()
                 } else {
-                    player.characters.splice(index, 1)
+                    player.characters.splice(indexC, 1)
+                    if(player.characters.length == 0){
+                        this.players.splice(indexP, 1)
+                    }
                 }
             })
         })
+        if(this.players.length == 1){
+            //GAMEOVER
+            this.isGameOver = true
+            console.log('GANADOR es ', this.players[0].name)
+        }
         this.projectiles.forEach(((projectile, index) => {
             projectile.update()
             if(projectile.hit){
@@ -84,15 +93,15 @@ export default class Map {
             }
         }))
         
-        let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
-        let currentCoords = {
-            x: Math.floor(convertidas.x),
-            y: Math.floor(convertidas.y)
-        }
+        // let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
+        // let currentCoords = {
+        //     x: Math.floor(convertidas.x),
+        //     y: Math.floor(convertidas.y)
+        // }
 
-        if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
-            this.tiles[currentCoords.y][currentCoords.x].hide = true
-        }
+        // if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
+        //     this.tiles[currentCoords.y][currentCoords.x].hide = true
+        // }
         
 
 

@@ -26,7 +26,6 @@ export default class Render extends Timer{
             this.camera.height = this.canvas.height = window.innerHeight
             this.ctx.translate(-this.camera.x , -this.camera.y)
         }
-        this.turn = 0
 
         
         // this.firstClick = true
@@ -34,9 +33,12 @@ export default class Render extends Timer{
     }
 
     render(newTime) {
-        // this.checkGameLogic()
         super.loop(newTime)
-        requestAnimationFrame(this.render.bind(this));
+        if(!this.map.isGameOver){
+            requestAnimationFrame(this.render.bind(this));
+        }else{
+            console.log('Juego terminado')
+        }
         if(this.pause)
             return
             
@@ -134,8 +136,9 @@ export default class Render extends Timer{
     }
 
 
-    checkGameLogic() {
-        
+    nextTurn() {
+        this.map.players[0].isTurn = !this.map.players[0].isTurn
+        this.map.players[1].isTurn = !this.map.players[0].isTurn
     }
 
 }

@@ -16,6 +16,7 @@ export default class Character extends MapObject{
         this.isShooting = false
         this.load()
         this.health = 50
+        this.canMove = false
     }
 
     load() {
