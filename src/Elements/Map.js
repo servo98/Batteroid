@@ -16,6 +16,8 @@ export default class Map {
         this.projectiles = []
         this.isGameOver = false
         this.firstClick = true
+        this.coordsFrom = undefined
+        this.coordsTo = undefined
         this.load()
     }
 
@@ -106,20 +108,36 @@ export default class Map {
         //     this.tiles[currentCoords.y][currentCoords.x].hide = true
         // }
 
+
+
+        if(input.leftClick && this.firstClick) {
+            //click
+        } 
+        this.firstClick = !input.leftClick
+
         if(input.leftClick) {
+            let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
+            // console.log('yei')
+            let currentCoords = {
+                x: Math.floor(convertidas.x),
+                y: Math.floor(convertidas.y)
+            }
             if(this.firstClick){
-                let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
-                let currentCoords = {
-                    x: Math.floor(convertidas.x),
-                    y: Math.floor(convertidas.y)
-                }
                 if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length) {
-                    console.log(currentCoords)
+                    this.coordsFrom = {x:currentCoords.x, y: currentCoords.y}
+                    this.firstClick = false
+                    console.log(this.coordsFrom)
+                }
+            }else{
+                if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length) {
+                    this.coordsTo = {x:currentCoords.x, y: currentCoords.y}
+                    this.firstClick = true
+                    console.log(this.coordsTo)
                 }
             }
             //click
         } 
-        this.firstClick = !input.leftClick
+        // this.firstClick = !input.leftClick && !this.firstClick
         
 
 
