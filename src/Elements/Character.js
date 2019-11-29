@@ -51,5 +51,13 @@ export default class Character extends MapObject{
         return this.health <= 0
     }
 
+    moveTo(x, y) {
+        if(this.canMove){
+            this.x = x
+            this.y = y
+        }
+        this.canMove = false
+    }
+
 
 }

@@ -15,6 +15,7 @@ export default class Map {
         this.players = []
         this.projectiles = []
         this.isGameOver = false
+        this.firstClick = true
         this.load()
     }
 
@@ -104,6 +105,21 @@ export default class Map {
         // if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
         //     this.tiles[currentCoords.y][currentCoords.x].hide = true
         // }
+
+        if(input.leftClick) {
+            if(this.firstClick){
+                let convertidas = car2iso((input.mouseX+camera.x)/64, (input.mouseY+camera.y)/64)
+                let currentCoords = {
+                    x: Math.floor(convertidas.x),
+                    y: Math.floor(convertidas.y)
+                }
+                if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length) {
+                    console.log(currentCoords)
+                }
+            }
+            //click
+        } 
+        this.firstClick = !input.leftClick
         
 
 

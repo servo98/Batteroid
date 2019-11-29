@@ -9,7 +9,7 @@ export default class Game {
         this.render = new Render(60, 'main')
         this.numOfUnits = []
         // this.STATE = 'MAIN_MENU'
-        this.firstClick = true
+        // this.firstClick = true
     }
     
     play(){
@@ -22,6 +22,7 @@ export default class Game {
         mainMenuInterface.addElement(this.render.camera.width-500, 0, 500, 200, 3, '', null)
         //Play
         mainMenuInterface.addElement(50, 300, 128*3, 32*3, 1, '👉play', () => {
+            this.render.playSound('resources/sounds/intro.mp3')
             this.render.playSound('resources/sounds/click.wav')
             this.render.camera.canMove = true
             let player1 = new Player('Fernando')
@@ -75,12 +76,9 @@ export default class Game {
         this.render.render()
 
 
-        document.onclick = () => {
-            if(this.firstClick){
-                this.render.playSound('resources/sounds/intro.mp3')
-                this.firstClick = false
-            }
-        }
+        // document.onclick = () => {
+        //     console.log(this.render.map.players)
+        // }
 
         document.onkeydown = (event) => {
             if(event.keyCode == 70){

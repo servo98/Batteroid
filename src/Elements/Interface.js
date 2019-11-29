@@ -30,21 +30,16 @@ export default class Interface {
         this.cursor.x = input.mouseX + camera.x 
         this.cursor.y = input.mouseY + camera.y
 
-        // console.log(this.elements.length)
         this.elements.forEach(element => {
             if(input.leftClick && this.firstClick) {
-                // console.log(element.isClicked(input, camera))
                 if(element.isClicked(input, camera) && element.handler){
                     element.handler()
                 }
             } 
-            
             element.update(input, camera)
         })
-        this.firstClick = false
-        if(!input.leftClick){
-            this.firstClick = true
-        }
+
+        this.firstClick = !input.leftClick
 
     }
 

@@ -138,6 +138,21 @@ export default class Render extends Timer{
     nextTurn() {
         this.map.players[0].isTurn = !this.map.players[0].isTurn
         this.map.players[1].isTurn = !this.map.players[0].isTurn
+        if(this.map.players[0].isTurn){
+            this.map.players[0].characters.forEach((character) => {
+                character.canMove = true
+            })
+            this.map.players[1].characters.forEach((character) => {
+                character.canMove = false
+            })
+        }else if(this.map.players[1].isTurn){
+            this.map.players[1].characters.forEach((character) => {
+                character.canMove = true
+            })
+            this.map.players[0].characters.forEach((character) => {
+                character.canMove = false
+            })
+        }
     }
 
     playSound(audio) {
