@@ -3,7 +3,8 @@ export const KEYS = {
     A: 1,
     S: 2,
     D: 3,
-    SPACE: 4
+    SPACE: 4,
+    ESC: 5
 }
 export default class Input {
     constructor() {
@@ -32,6 +33,8 @@ export default class Input {
                     break
                 case 32:
                     this.keys[KEYS.SPACE] = true
+                case 27:
+                    this.keys[KEYS.ESC] = true
                 default: break
             }
         })
@@ -51,6 +54,8 @@ export default class Input {
                     break
                 case 32:
                     this.keys[KEYS.SPACE] = false
+                case 27:
+                    this.keys[KEYS.ESC] = false
                 default: break
             }
         })

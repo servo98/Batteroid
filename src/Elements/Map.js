@@ -61,7 +61,10 @@ export default class Map {
     }
 
     update(input, camera){
-
+        if(input.keys[KEYS.ESC]){
+            console.log('reset de seleccion')
+            this.firstClick = true
+        }
         
         if(input.keys[KEYS.SPACE] && !this.isShooting){
             this.isShooting = true
@@ -136,12 +139,20 @@ export default class Map {
                     console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
                 }else{
                     this.coordsTo = {x:currentCoords.x, y: currentCoords.y}
-                    console.log(this.coordsFrom)
-                    console.log(this.coordsTo)
-                    let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
-                    // cons
-                    this.characters[this.coordsFrom.y][this.coordsFrom.x].x = convertidas.x*64-32
-                    this.characters[this.coordsFrom.y][this.coordsFrom.x].y = convertidas.y*64 -24
+                    //Si son diferentes coords
+                    if(this.coordsTo.x != this.coordsFrom.x 
+                        || this.coordsTo.y != this.coordsFrom.y){
+
+                        let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
+                        // cons
+                        if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null){
+                            console.log('Character moved')
+                            this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
+                            this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
+                            this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
+                        }
+                    }
+                    
 
                 }
                 this.firstClick =  !this.firstClick

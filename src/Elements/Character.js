@@ -53,10 +53,10 @@ export default class Character extends MapObject{
     }
 
     moveTo(x, y) {
-        if(this.canMove){
+        // if(this.canMove){
             this.x = x
             this.y = y
-        }
+        // }
         this.canMove = false
     }
 
