@@ -31,8 +31,54 @@ export default class Game {
             let temp = 9
             let color = 0
             let characterId = 0
+
+            let typesOfMoves = [
+                //1 around
+                [
+                    {x:1, y:1},
+                    {x:1, y:0},
+                    {x:1, y:-1},
+                    {x:0, y:1},
+                    {x:0, y:-1},
+                    {x:-1, y:1},
+                    {x:-1, y:0},
+                    {x:-1, y:-1},
+                ],
+                [
+                    {x:1, y:1},
+                    {x:2, y:2},
+                    {x:-1, y:-1},
+                    {x:-2, y:-2},
+                    {x:-1, y:1},
+                    {x:-2, y:-2},
+                    {x:1, y:-1},
+                    {x:2, y:-2},
+                ],
+                [
+                    {x:1, y:2},
+                    {x:2, y:1},
+                    {x:2, y:-1},
+                    {x:1, y:-2},
+                    {x:-1, y:-2},
+                    {x:-2, y:-1},
+                    {x:-2, y:1},
+                    {x:-1, y:2},
+                ],
+                [
+                    {y:1, yx:0},
+                    {y:2, x:0},
+                    {y:3, x:0},
+                    {y:-1, x:0},
+                    {y:-2, x:0},
+                    {y:-3, x:0},
+
+                ]
+            ]
+
+
             players.forEach((player) => {
                 for(let i = 0; i < numberOfCharacters; i++){
+                    console.log(temp, i)
                     let tmpCharacter = new Character(i, temp, color, characterId++, color == 0 ? player1.name : player2.name)
                     menuMap.characters[temp][i] = tmpCharacter
                     // player.characters.push(tmpCharacter)

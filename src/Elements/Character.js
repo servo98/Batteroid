@@ -14,14 +14,21 @@ export default class Character extends MapObject{
         this.health = 50 - 40
         this.canMove = false
         this.id = id
-        this.load()
         this.playerName = playerName
+        this.availableMoves = []
+        this.load()
     }
 
     load() {
         let imagesRoutes = []
-        imagesRoutes.push(loadImage('resources/entity1.png'))
-        imagesRoutes.push(loadImage('resources/entity2.png'))
+        imagesRoutes.push(loadImage('resources/entity1_0.png'))
+        imagesRoutes.push(loadImage('resources/entity1_1.png'))
+        imagesRoutes.push(loadImage('resources/entity1_2.png'))
+        imagesRoutes.push(loadImage('resources/entity1_3.png'))
+        imagesRoutes.push(loadImage('resources/entity2_0.png'))
+        imagesRoutes.push(loadImage('resources/entity2_1.png'))
+        imagesRoutes.push(loadImage('resources/entity2_2.png'))
+        imagesRoutes.push(loadImage('resources/entity2_3.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
