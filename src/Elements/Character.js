@@ -1,6 +1,6 @@
 import MapObject from './MapObject.js'
 import {loadImage} from '../Utils/Loader.js'
-import {iso2car} from '../Utils/Converter.js'
+import {iso2car, car2iso} from '../Utils/Converter.js'
 
 export default class Character extends MapObject{
     constructor(x, y, imageId = 0, id, playerName, availableMoves) {
@@ -17,6 +17,8 @@ export default class Character extends MapObject{
         this.id = id
         this.playerName = playerName
         this.availableMoves = availableMoves
+        this.availableTiles = []
+        this.availableTilesObject = []
         this.selected = false
         this.load()
     }
@@ -42,6 +44,18 @@ export default class Character extends MapObject{
     }
 
     update(input, camera) {
+        if(this.selected){
+            let arregloTmp = []
+            this.availableTiles.forEach((availableTile) => {
+                let convertidas = iso2car(availableTile.x, availableTile.y)
+                arregloTmp.push({x: convertidas.x*64-32, y: convertidas.y*64 -24})
+            })
+            this.availableTilesObject = arregloTmp
+            console.log(arregloTmp)
+        }else{
+            this.availableTilesObject = []
+        }
+            
         
     }
 
@@ -55,11 +69,20 @@ export default class Character extends MapObject{
             ctx.drawImage(this.images[10], this.x, this.y+24, 64, 32)
         }
         if(this.selected){
+            console.log(this.availableTilesObject.length)
             ctx.drawImage(this.images[9], this.x, this.y+24, 64, 32)
-
-            //Draw under
-            //DRAW availables moves
-            // console.log(this.availableMoves)
+            this.availableTilesObject.forEach(tile => {
+                ctx.drawImage(this.images[9], tile.x, tile.y+24, 64, 32)
+            })
+            // let convertidas = car2iso(this.x/64, this.y/64)
+            // let currentCoords = {
+            //     x: Math.ceil(convertidas.x),
+            //     y: Math.ceil(convertidas.y)
+            // }
+            // console.log(this.availableTiles)
+            // this.availableMoves.forEach((move) => {
+            //     // console.log(move)
+            // })
         }
 
         if(this.health < 50) {
@@ -92,6 +115,26 @@ export default class Character extends MapObject{
         }
         this.canShoot = false
 
+    }
+
+    calculateAvailable() {
+        let temparray = []
+        let convertidas = car2iso(this.x/64, this.y/64)
+        let currentCoords = {
+            x: Math.floor(convertidas.x)+2,
+            y: Math.floor(convertidas.y)+1
+        }
+        // console.log(currentCoords)
+        this.availableMoves.forEach((availableMove) => {
+            let tmpCoord = {x: currentCoords.x+availableMove.x, y: currentCoords.y+availableMove.y}
+            if(tmpCoord.x >= 0 && tmpCoord.x < 10 && tmpCoord.y >= 0 && tmpCoord.y < 10)
+                temparray.push(tmpCoord)
+        })
+        this.availableTiles = temparray
+
+        // if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
+
+        // }
     }
 
 

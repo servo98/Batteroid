@@ -71,19 +71,6 @@ export default class Map {
             this.projectiles.push(new Projectile(0, 0, 700, 0, 0, 13, 13))
         }
 
-        // this.players.forEach((player, indexP) => {
-        //     player.characters.forEach((character, indexC) => {
-        //         if(!character.isDead()){
-        //             character.update(input, camera)
-        //         } else {
-        //             player.characters.splice(indexC, 1)
-        //             if(player.characters.length == 0){
-        //                 this.players.splice(indexP, 1)
-        //             }
-        //         }
-        //     })
-        // })
-
         this.characters.forEach((row, indexY) => {
             row.forEach((character, indexX) => {
                 if(character!= null){
@@ -136,8 +123,10 @@ export default class Map {
                 if(this.firstClick){
                     this.coordsFrom = {x:currentCoords.x, y: currentCoords.y}
                     if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null && this.characters[this.coordsFrom.y][this.coordsFrom.x].canMove && this.characters[this.coordsFrom.y][this.coordsFrom.x].canShoot){
-                        console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
+      
                         this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = true
+                        this.characters[this.coordsFrom.y][this.coordsFrom.x].calculateAvailable()
+
                         this.firstClick = false
                     }
                 }else{
@@ -157,7 +146,9 @@ export default class Map {
                                 this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
                             }
                     
-                    } 
+                    } else {
+                        this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
+                    }
                     this.firstClick  = true
                   
                     

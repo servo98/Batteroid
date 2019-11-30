@@ -151,6 +151,7 @@ export default class Render extends Timer{
                     } else {
                         character.canMove = false
                         character.canShoot = false
+                        character.selected = false
                     }
                 }
                     
