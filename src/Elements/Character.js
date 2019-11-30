@@ -51,12 +51,17 @@ export default class Character extends MapObject{
                 arregloTmp.push({x: convertidas.x*64-32, y: convertidas.y*64 -24})
             })
             this.availableTilesObject = arregloTmp
-            console.log(arregloTmp)
         }else{
             this.availableTilesObject = []
         }
             
         
+    }
+
+    drawAvailable(ctx) {
+        this.availableTilesObject.forEach(tile => {
+            ctx.drawImage(this.images[9], tile.x, tile.y+24, 64, 32)
+        })
     }
 
     draw(ctx) {
@@ -68,23 +73,10 @@ export default class Character extends MapObject{
         }else {
             ctx.drawImage(this.images[10], this.x, this.y+24, 64, 32)
         }
-        if(this.selected){
-            console.log(this.availableTilesObject.length)
-            ctx.drawImage(this.images[9], this.x, this.y+24, 64, 32)
-            this.availableTilesObject.forEach(tile => {
-                ctx.drawImage(this.images[9], tile.x, tile.y+24, 64, 32)
-            })
-            // let convertidas = car2iso(this.x/64, this.y/64)
-            // let currentCoords = {
-            //     x: Math.ceil(convertidas.x),
-            //     y: Math.ceil(convertidas.y)
-            // }
-            // console.log(this.availableTiles)
-            // this.availableMoves.forEach((move) => {
-            //     // console.log(move)
-            // })
-        }
 
+        if(this.selected){
+            ctx.drawImage(this.images[9], this.x, this.y+24, 64, 32)
+        }
         if(this.health < 50) {
             ctx.save()
             ctx.fillStyle = "rgb(244, 87, 79)"
@@ -135,6 +127,17 @@ export default class Character extends MapObject{
         // if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
 
         // }
+    }
+
+    isValidTarget(cords) {
+        let result = false
+        this.availableTiles.forEach(tile => {
+            if(tile.x == cords.x && tile.y == cords.y){
+                result = true
+                return
+            }
+        })
+        return result
     }
 
 

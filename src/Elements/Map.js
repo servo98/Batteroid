@@ -131,27 +131,29 @@ export default class Map {
                     }
                 }else{
                     this.coordsTo = {x:currentCoords.x, y: currentCoords.y}
-                    //Si son diferentes coords
-                    if(this.coordsTo.x != this.coordsFrom.x 
-                        || this.coordsTo.y != this.coordsFrom.y){
+                    console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x].isValidTarget(this.coordsTo))
+                    if(this.characters[this.coordsFrom.y][this.coordsFrom.x].isValidTarget(this.coordsTo)){
+                        //Si son diferentes coords
+                        if(this.coordsTo.x != this.coordsFrom.x 
+                            || this.coordsTo.y != this.coordsFrom.y){
+                            
+                                let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
+                                if(this.characters[this.coordsTo.y][this.coordsTo.x] != null){
+                                    this.characters[this.coordsFrom.y][this.coordsFrom.x].shoot(this.characters[this.coordsTo.y][this.coordsTo.x])
+                                    this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = false
+                                }else{
+                                    this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
+                                    this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
+                                    this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
+                                    this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
+                                }
                         
-                            let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
-                            if(this.characters[this.coordsTo.y][this.coordsTo.x] != null){
-                                this.characters[this.coordsFrom.y][this.coordsFrom.x].shoot(this.characters[this.coordsTo.y][this.coordsTo.x])
-                                this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = false
-                            }else{
-                                this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
-                                this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
-                                this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
-                                this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
-                            }
-                    
-                    } else {
-                        this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
+                        } else {
+                            this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
+                        }
+                        this.firstClick  = true
                     }
-                    this.firstClick  = true
                   
-                    
 
                 }
                 // this.firstClick =  !this.firstClick
@@ -173,9 +175,20 @@ export default class Map {
 
         this.characters.forEach((row) => {
             row.forEach((character) => {
+                if(character!= null){
+                    if(camera.isInside(character) && character.selected){
+                        character.drawAvailable(ctx)
+                    }
+                }
+
+            })
+        })
+
+        this.characters.forEach((row) => {
+            row.forEach((character) => {
                 if(character!= null)
                     if(camera.isInside(character))
-                        character.draw(ctx, camera)
+                        character.draw(ctx)
             })
         })
         // this.players.forEach(player => {
