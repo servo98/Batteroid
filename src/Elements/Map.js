@@ -131,7 +131,6 @@ export default class Map {
                     }
                 }else{
                     this.coordsTo = {x:currentCoords.x, y: currentCoords.y}
-                    console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x].isValidTarget(this.coordsTo))
                     if(this.characters[this.coordsFrom.y][this.coordsFrom.x].isValidTarget(this.coordsTo)){
                         //Si son diferentes coords
                         if(this.coordsTo.x != this.coordsFrom.x 

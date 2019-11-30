@@ -119,9 +119,12 @@ export default class Character extends MapObject{
         // console.log(currentCoords)
         this.availableMoves.forEach((availableMove) => {
             let tmpCoord = {x: currentCoords.x+availableMove.x, y: currentCoords.y+availableMove.y}
+            // console.log(tmpCoord.x >= 0 , tmpCoord.x < 10 , tmpCoord.y >= 0 , tmpCoord.y < 10)
+            console.log(tmpCoord.x, tmpCoord.y, tmpCoord.x >= 0 && tmpCoord.x < 10 && tmpCoord.y >= 0 && tmpCoord.y < 10)
             if(tmpCoord.x >= 0 && tmpCoord.x < 10 && tmpCoord.y >= 0 && tmpCoord.y < 10)
                 temparray.push(tmpCoord)
         })
+       
         this.availableTiles = temparray
 
         // if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){

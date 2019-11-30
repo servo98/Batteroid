@@ -23,7 +23,7 @@ export default class Game {
             this.render.playSound('resources/sounds/intro.mp3')
             this.render.playSound('resources/sounds/click.wav')
             this.render.camera.canMove = true
-            let player1 = new Player('Fernando')
+            let player1 = new Player('Jugador 1')
             let player2 = new Player('Jugador 2')
             player2.isTurn = true
             let players = [player1, player2]
@@ -50,7 +50,7 @@ export default class Game {
                     {x:-1, y:-1},
                     {x:-2, y:-2},
                     {x:-1, y:1},
-                    {x:-2, y:-2},
+                    {x:-2, y:2},
                     {x:1, y:-1},
                     {x:2, y:-2},
                 ],
