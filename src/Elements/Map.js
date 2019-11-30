@@ -135,7 +135,7 @@ export default class Map {
             if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
                 if(this.firstClick){
                     this.coordsFrom = {x:currentCoords.x, y: currentCoords.y}
-                    if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null && this.characters[this.coordsFrom.y][this.coordsFrom.x].canMove){
+                    if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null && this.characters[this.coordsFrom.y][this.coordsFrom.x].canMove && this.characters[this.coordsFrom.y][this.coordsFrom.x].canShoot){
                         console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
                         this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = true
                         this.firstClick = false
@@ -148,7 +148,7 @@ export default class Map {
                         
                             let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
                             if(this.characters[this.coordsTo.y][this.coordsTo.x] != null){
-                                this.characters[this.coordsTo.y][this.coordsTo.x].health -= 10
+                                this.characters[this.coordsFrom.y][this.coordsFrom.x].shoot(this.characters[this.coordsTo.y][this.coordsTo.x])
                                 this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = false
                             }else{
                                 this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)

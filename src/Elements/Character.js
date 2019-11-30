@@ -13,6 +13,7 @@ export default class Character extends MapObject{
         this.isShooting = false
         this.health = 50
         this.canMove = false
+        this.canShoot = false
         this.id = id
         this.playerName = playerName
         this.availableMoves = availableMoves
@@ -48,7 +49,7 @@ export default class Character extends MapObject{
         if(!this.ready)
             return
         
-        if(this.canMove) {
+        if(this.canMove && this.canShoot) {
             ctx.drawImage(this.images[8], this.x, this.y+24, 64, 32)
         }else {
             ctx.drawImage(this.images[10], this.x, this.y+24, 64, 32)
@@ -83,6 +84,14 @@ export default class Character extends MapObject{
             this.y = y
         }
         this.canMove = false
+    }
+
+    shoot(target){
+        if(this.canShoot){
+            target.health -= 10
+        }
+        this.canShoot = false
+
     }
 
 

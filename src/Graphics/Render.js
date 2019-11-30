@@ -147,8 +147,10 @@ export default class Render extends Timer{
                     // console.log(character)
                     if(character.playerName == turnName){
                         character.canMove = true
+                        character.canShoot = true
                     } else {
                         character.canMove = false
+                        character.canShoot = false
                     }
                 }
                     
