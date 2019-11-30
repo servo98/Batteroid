@@ -1,6 +1,7 @@
 import MapObject from './MapObject.js'
 import {loadImage} from '../Utils/Loader.js'
 import {iso2car, car2iso} from '../Utils/Converter.js'
+import playAudio from '../Audio/AudioManagement.js'
 
 export default class Character extends MapObject{
     constructor(x, y, imageId = 0, id, playerName, availableMoves) {
@@ -104,6 +105,7 @@ export default class Character extends MapObject{
     shoot(target){
         if(this.canShoot){
             target.health -= 10
+            playAudio('resources/sounds/shoot.wav')
         }
         this.canShoot = false
 
@@ -119,8 +121,6 @@ export default class Character extends MapObject{
         // console.log(currentCoords)
         this.availableMoves.forEach((availableMove) => {
             let tmpCoord = {x: currentCoords.x+availableMove.x, y: currentCoords.y+availableMove.y}
-            // console.log(tmpCoord.x >= 0 , tmpCoord.x < 10 , tmpCoord.y >= 0 , tmpCoord.y < 10)
-            console.log(tmpCoord.x, tmpCoord.y, tmpCoord.x >= 0 && tmpCoord.x < 10 && tmpCoord.y >= 0 && tmpCoord.y < 10)
             if(tmpCoord.x >= 0 && tmpCoord.x < 10 && tmpCoord.y >= 0 && tmpCoord.y < 10)
                 temparray.push(tmpCoord)
         })

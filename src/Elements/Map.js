@@ -190,13 +190,6 @@ export default class Map {
                         character.draw(ctx)
             })
         })
-        // this.players.forEach(player => {
-        //     player.characters.forEach(character => {
-        //         if(camera.isInside(character))
-        //             character.draw(ctx, camera)
-        //     })
-        // })
-        
         this.projectiles.forEach((projectile => {
             if(camera.isInside(projectile))
             projectile.draw(ctx)

@@ -94,17 +94,8 @@ export default class Game {
             menuMap.characters[0][7] = new Character(7, 0, 6, characterId++, player2.name, typesOfMoves[2])
             menuMap.characters[0][8] = new Character(8, 0, 7, characterId++, player2.name, typesOfMoves[3])
             menuMap.characters[0][9] = new Character(9, 0, 7, characterId++, player2.name, typesOfMoves[3])
-            console.log(menuMap.characters)
-            // players.forEach((player) => {
-            //     for(let i = 0; i < numberOfCharacters; i++){
-            //         console.log(temp, i)
-            //         let tmpCharacter = new Character(i, temp, color, characterId++, color == 0 ? player1.name : player2.name)
-            //         menuMap.characters[temp][i] = tmpCharacter
-            //         // player.characters.push(tmpCharacter)
-            //     }
-            //     temp -= 9
-            //     color++
-            // })
+        
+
             menuMap.players.push(...players)
 
             let inGameInterface = new Interface()
@@ -128,6 +119,7 @@ export default class Game {
             if(event.keyCode == 70){
                 // this.render.map.players[0].characters[0].health -= 10
                 console.log(this.render.map.characters)
+                this.render.map.firstClick = true
                 this.render.nextTurn()
             }
         }
