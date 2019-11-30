@@ -3,7 +3,7 @@ import {loadImage} from '../Utils/Loader.js'
 import {iso2car} from '../Utils/Converter.js'
 
 export default class Character extends MapObject{
-    constructor(x, y, imageId = 0, id, playerName) {
+    constructor(x, y, imageId = 0, id, playerName, availableMoves) {
         let convertidas = iso2car(x, y)
         super(convertidas.x*64-32, convertidas.y*64 -24, imageId, 64, 64)
         this.ready = false
@@ -11,11 +11,12 @@ export default class Character extends MapObject{
         this.images = []
         this.projectiles = []
         this.isShooting = false
-        this.health = 50 - 40
+        this.health = 50
         this.canMove = false
         this.id = id
         this.playerName = playerName
-        this.availableMoves = []
+        this.availableMoves = availableMoves
+        this.selected = false
         this.load()
     }
 
@@ -29,6 +30,7 @@ export default class Character extends MapObject{
         imagesRoutes.push(loadImage('resources/entity2_1.png'))
         imagesRoutes.push(loadImage('resources/entity2_2.png'))
         imagesRoutes.push(loadImage('resources/entity2_3.png'))
+        imagesRoutes.push(loadImage('resources/interface/topYellow.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
@@ -43,12 +45,22 @@ export default class Character extends MapObject{
     draw(ctx) {
         if(!this.ready)
             return
-        ctx.save()
-        ctx.fillStyle = "rgb(244, 87, 79)"
-        ctx.fillRect(this.x+(this.width/2)-25, this.y-10, 50, 3)
-        ctx.fillStyle = "rgb(117, 196, 107)"
-        ctx.fillRect(this.x+(this.width/2)-25, this.y-10, this.health, 3)
-        ctx.restore()
+        
+        if(this.selected){
+            ctx.drawImage(this.images[this.images.length-1], this.x, this.y+24, 64, 32)
+            //Draw under
+            //DRAW availables moves
+            console.log(this.availableMoves)
+        }
+
+        if(this.health < 50) {
+            ctx.save()
+            ctx.fillStyle = "rgb(244, 87, 79)"
+            ctx.fillRect(this.x+(this.width/2)-25, this.y-10, 50, 3)
+            ctx.fillStyle = "rgb(117, 196, 107)"
+            ctx.fillRect(this.x+(this.width/2)-25, this.y-10, this.health, 3)
+            ctx.restore()
+        }
         super.draw(ctx, this.images[this.imageId])
         
     }

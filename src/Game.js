@@ -74,18 +74,37 @@ export default class Game {
 
                 ]
             ]
-
-
-            players.forEach((player) => {
-                for(let i = 0; i < numberOfCharacters; i++){
-                    console.log(temp, i)
-                    let tmpCharacter = new Character(i, temp, color, characterId++, color == 0 ? player1.name : player2.name)
-                    menuMap.characters[temp][i] = tmpCharacter
-                    // player.characters.push(tmpCharacter)
-                }
-                temp -= 9
-                color++
-            })
+            menuMap.characters[9][0] = new Character(0, 9, 0, characterId++, player1.name, typesOfMoves[0])
+            menuMap.characters[9][1] = new Character(1, 9, 0, characterId++, player1.name, typesOfMoves[0])
+            menuMap.characters[9][2] = new Character(2, 9, 0, characterId++, player1.name, typesOfMoves[0])
+            menuMap.characters[9][3] = new Character(3, 9, 0, characterId++, player1.name, typesOfMoves[0])
+            menuMap.characters[9][4] = new Character(4, 9, 1, characterId++, player1.name, typesOfMoves[1])
+            menuMap.characters[9][5] = new Character(5, 9, 1, characterId++, player1.name, typesOfMoves[1])
+            menuMap.characters[9][6] = new Character(6, 9, 2, characterId++, player1.name, typesOfMoves[2])
+            menuMap.characters[9][7] = new Character(7, 9, 2, characterId++, player1.name, typesOfMoves[2])
+            menuMap.characters[9][8] = new Character(8, 9, 3, characterId++, player1.name, typesOfMoves[3])
+            menuMap.characters[9][9] = new Character(9, 9, 3, characterId++, player1.name, typesOfMoves[3])
+            menuMap.characters[0][0] = new Character(0, 0, 4, characterId++, player2.name, typesOfMoves[0])
+            menuMap.characters[0][1] = new Character(1, 0, 4, characterId++, player2.name, typesOfMoves[0])
+            menuMap.characters[0][2] = new Character(2, 0, 4, characterId++, player2.name, typesOfMoves[0])
+            menuMap.characters[0][3] = new Character(3, 0, 4, characterId++, player2.name, typesOfMoves[0])
+            menuMap.characters[0][4] = new Character(4, 0, 5, characterId++, player2.name, typesOfMoves[1])
+            menuMap.characters[0][5] = new Character(5, 0, 5, characterId++, player2.name, typesOfMoves[1])
+            menuMap.characters[0][6] = new Character(6, 0, 6, characterId++, player2.name, typesOfMoves[2])
+            menuMap.characters[0][7] = new Character(7, 0, 6, characterId++, player2.name, typesOfMoves[2])
+            menuMap.characters[0][8] = new Character(8, 0, 7, characterId++, player2.name, typesOfMoves[3])
+            menuMap.characters[0][9] = new Character(9, 0, 7, characterId++, player2.name, typesOfMoves[3])
+            console.log(menuMap.characters)
+            // players.forEach((player) => {
+            //     for(let i = 0; i < numberOfCharacters; i++){
+            //         console.log(temp, i)
+            //         let tmpCharacter = new Character(i, temp, color, characterId++, color == 0 ? player1.name : player2.name)
+            //         menuMap.characters[temp][i] = tmpCharacter
+            //         // player.characters.push(tmpCharacter)
+            //     }
+            //     temp -= 9
+            //     color++
+            // })
             menuMap.players.push(...players)
 
             let inGameInterface = new Interface()

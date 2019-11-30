@@ -137,6 +137,7 @@ export default class Map {
                     this.coordsFrom = {x:currentCoords.x, y: currentCoords.y}
                     if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null && this.characters[this.coordsFrom.y][this.coordsFrom.x].canMove){
                         console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
+                        this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = true
                         this.firstClick = false
                     }
                 }else{
@@ -148,11 +149,12 @@ export default class Map {
                             let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
                             if(this.characters[this.coordsTo.y][this.coordsTo.x] != null){
                                 this.characters[this.coordsTo.y][this.coordsTo.x].health -= 10
+                                this.characters[this.coordsFrom.y][this.coordsFrom.x].selected = false
                             }else{
                                 this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
                                 this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
                                 this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
-
+                                this.characters[this.coordsTo.y][this.coordsTo.x].selected = false
                             }
                     
                     } 
