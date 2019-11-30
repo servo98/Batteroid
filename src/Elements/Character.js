@@ -32,6 +32,7 @@ export default class Character extends MapObject{
         imagesRoutes.push(loadImage('resources/entity2_3.png'))
         imagesRoutes.push(loadImage('resources/interface/topYellow.png'))
         imagesRoutes.push(loadImage('resources/interface/topGreen.png'))
+        imagesRoutes.push(loadImage('resources/interface/topRed.png'))
         Promise.all(imagesRoutes).then( (values) => {
             this.images.push(...values)
             this.ready = true
@@ -49,13 +50,15 @@ export default class Character extends MapObject{
         
         if(this.canMove) {
             ctx.drawImage(this.images[8], this.x, this.y+24, 64, 32)
+        }else {
+            ctx.drawImage(this.images[10], this.x, this.y+24, 64, 32)
         }
         if(this.selected){
             ctx.drawImage(this.images[9], this.x, this.y+24, 64, 32)
 
             //Draw under
             //DRAW availables moves
-            console.log(this.availableMoves)
+            // console.log(this.availableMoves)
         }
 
         if(this.health < 50) {
