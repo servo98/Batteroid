@@ -62,7 +62,6 @@ export default class Map {
 
     update(input, camera){
         if(input.keys[KEYS.ESC]){
-            console.log('reset de seleccion')
             this.firstClick = true
         }
         
@@ -101,11 +100,11 @@ export default class Map {
             })
         })
 
-        // if(this.players.length == 1){
-        //     //GAMEOVER
-        //     this.isGameOver = true
-        //     console.log('GANADOR es ', this.players[0].name)
-        // }
+        if(this.players.length == 1){
+            //GAMEOVER
+            this.isGameOver = true
+            console.log('GANADOR es ', this.players[0].name)
+        }
         this.projectiles.forEach(((projectile, index) => {
             projectile.update()
             if(projectile.hit){
@@ -136,15 +135,11 @@ export default class Map {
             if(currentCoords.x >= 0 && currentCoords.x < this.tiles[0].length && currentCoords.y >= 0 && currentCoords.y < this.tiles.length){
                 if(this.firstClick){
                     this.coordsFrom = {x:currentCoords.x, y: currentCoords.y}
-                    if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null){
+                    if(this.characters[this.coordsFrom.y][this.coordsFrom.x] != null && this.characters[this.coordsFrom.y][this.coordsFrom.x].canMove){
                         console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
                         this.firstClick = false
                     }
                 }else{
-                    // if(this.characters[this.coordsFrom.y][this.coordsFrom.x] == null){
-                    //     // console.log(this.characters[this.coordsFrom.y][this.coordsFrom.x])
-                    //     this.firstClick = true
-                    // }
                     this.coordsTo = {x:currentCoords.x, y: currentCoords.y}
                     //Si son diferentes coords
                     if(this.coordsTo.x != this.coordsFrom.x 
@@ -153,13 +148,10 @@ export default class Map {
                             let convertidas = iso2car(this.coordsTo.x, this.coordsTo.y)
                             if(this.characters[this.coordsTo.y][this.coordsTo.x] != null){
                                 this.characters[this.coordsTo.y][this.coordsTo.x].health -= 10
-                                console.log('character shot another character')
                             }else{
-
-                                    console.log('Character moved')
-                                    this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
-                                    this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
-                                    this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
+                                this.characters[this.coordsFrom.y][this.coordsFrom.x].moveTo(convertidas.x*64-32, convertidas.y*64 -24)
+                                this.characters[this.coordsTo.y][this.coordsTo.x] = this.characters[this.coordsFrom.y][this.coordsFrom.x]
+                                this.characters[this.coordsFrom.y][this.coordsFrom.x] = null
 
                             }
                     

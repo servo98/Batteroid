@@ -138,21 +138,22 @@ export default class Render extends Timer{
     nextTurn() {
         this.map.players[0].isTurn = !this.map.players[0].isTurn
         this.map.players[1].isTurn = !this.map.players[0].isTurn
-        if(this.map.players[0].isTurn){
-            this.map.players[0].characters.forEach((character) => {
-                character.canMove = true
+        let turnName = this.map.players[0].isTurn ? this.map.players[0].name : this.map.players[1].name
+        console.log('turno de', turnName)
+        this.map.characters.forEach((row) => {
+            row.forEach((character) => {
+                if(character != null ){
+
+                    // console.log(character)
+                    if(character.playerName == turnName){
+                        character.canMove = true
+                    } else {
+                        character.canMove = false
+                    }
+                }
+                    
             })
-            this.map.players[1].characters.forEach((character) => {
-                character.canMove = false
-            })
-        }else if(this.map.players[1].isTurn){
-            this.map.players[1].characters.forEach((character) => {
-                character.canMove = true
-            })
-            this.map.players[0].characters.forEach((character) => {
-                character.canMove = false
-            })
-        }
+        })
     }
 
     playSound(audio) {

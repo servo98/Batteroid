@@ -24,9 +24,6 @@ export default class InterfaceObject extends MapObject{
     }
 
     isClicked(input) {
-        // console.log(this.originalX, this.originalY)
-        // console.log(input.mouseX, input.mouseY)
-        // console.log(this.originalX < input.mouseX, this.originalX+this.width > input.mouseX, this.originalY <input.mouseY, this.originalY+this.height > input.mouseY)
         return (
             this.originalX < input.mouseX &&
             this.originalX+this.width > input.mouseX &&

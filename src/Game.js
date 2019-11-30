@@ -24,8 +24,8 @@ export default class Game {
             this.render.playSound('resources/sounds/click.wav')
             this.render.camera.canMove = true
             let player1 = new Player('Fernando')
-            player1.isTurn = true
             let player2 = new Player('Jugador 2')
+            player2.isTurn = true
             let players = [player1, player2]
             let numberOfCharacters = 10
             let temp = 9
@@ -33,7 +33,7 @@ export default class Game {
             let characterId = 0
             players.forEach((player) => {
                 for(let i = 0; i < numberOfCharacters; i++){
-                    let tmpCharacter = new Character(i, temp, color, characterId++)
+                    let tmpCharacter = new Character(i, temp, color, characterId++, color == 0 ? player1.name : player2.name)
                     menuMap.characters[temp][i] = tmpCharacter
                     // player.characters.push(tmpCharacter)
                 }
@@ -49,6 +49,7 @@ export default class Game {
             inGameInterface.addElement((this.render.camera.width/2) - 200, this.render.camera.height - 100, 400, 80, 1, 'Turno de...', null)
             this.render.setCurrentInterface(inGameInterface)
             this.render.camera.y += 160
+            this.render.nextTurn()
         })
         this.render.setCurrentInterface(mainMenuInterface)
         
