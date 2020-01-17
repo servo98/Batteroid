@@ -17,4 +17,4 @@ Use https://www.npmjs.com/package/http-server
 - [ ] Cursor over tile
 - [ ] Character Movements
 
-[Demo](https://tarzanboycraft.github.io/Batteroid/)
+[Demo](https://servo98.github.io/Batteroid/)
